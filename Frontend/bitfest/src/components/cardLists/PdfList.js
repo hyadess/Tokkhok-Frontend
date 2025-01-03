@@ -26,147 +26,121 @@ import axios from "axios";
 //for toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./../../css/Toast.css";
+import "../../css/Toast.css";
 
 //------------------------
 
-const ConvoList = (props) => {
+const PdfList = (props) => {
+  // inside props, i have list title, list of pdfs, isAll
   //useAuth for user id
-  const { userId } = useAuth();
+  //const { userId } = useAuth();
   const navigate = useNavigate();
 
-  // as props, we will get isAll ( for short list) and a convo list
-  const [convos, setConvos] = useState([]);
-
-  //     {
-  //         "id": 1,
-  //         "placeholder": "the huge text problem that",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 1,
-  //     },
-  //     {
-  //         "id": 2,
-  //         "placeholder": "problem 2",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 2,
-  //     },
-  //     {
-  //         "id": 3,
-  //         "placeholder": "problem 3",
-  //         "link": "visit_here",
-  //         "source": "Leetcode",
-  //         "state": 3,
-  //     },
-  //     {
-  //         "id": 4,
-  //         "placeholder": "problem 4",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-  //     {
-  //         "id": 5,
-  //         "placeholder": "problem 5",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-  //     {
-  //         "id": 6,
-  //         "placeholder": "problem 6",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-  //     {
-  //         "id": 7,
-  //         "placeholder": "problem 7",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-  //     {
-  //         "id": 8,
-  //         "placeholder": "problem 8",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-  //     {
-  //         "id": 9,
-  //         "placeholder": "problem 9",
-  //         "link": "visit_here",
-  //         "source": "codeforces",
-  //         "state": 4,
-  //     },
-
-  // ]
+  const [pdfs, setPdfs] = useState([]);
+  const dummypdfs = [
+    {
+      id: 1,
+      title: " pdf title 1",
+      summary: "pdf summary 1",
+      isMine: true,
+      isPublic: true,
+      isHighlighted: false,
+      url: "url1",
+    },
+    {
+      id: 2,
+      title: " pdf title 2",
+      summary: "pdf summary 2",
+      isMine: false,
+      isPublic: false,
+      isHighlighted: true,
+      url: "url2",
+    },
+    {
+      id: 3,
+      title: " pdf title 3",
+      summary: "pdf summary 3",
+      isMine: false,
+      isPublic: true,
+      isHighlighted: false,
+      url: "url3",
+    },
+  ];
 
   //
-  const [selected, setSelected] = useState("all");
+  //const [selected, setSelected] = useState("all");
 
-  // load suggestions every time when the props.suggestions changes
   useEffect(() => {
-    console.log("convos:", props.convos);
-    setConvos(props.convos);
-  }, [props.convos]);
+    console.log("convos:", props.pdfs);
+    setPdfs(props.pdfs);
+  }, [props.pdfs]);
 
-  const makeImportant = async (i) => {
+  const makeHighlighted = async (i) => {
     console.log(`${i} th convo is made important`);
-    const response = await axios.put(
-      `http://127.0.0.1:8002/conversation/${i}/highlight`
-    );
-    console.log(response.data);
-    // now we are getting the updated suggestion from the data, update the suggestions where the id matches
-    const updatedConvo = response.data;
 
-    if (updatedConvo === null) {
-      return;
-    } else {
-      // if (updatedConvo.isHighlighted == true) {
-      //     showtoast('success', 'Conversation is highlighted');
-      // }
-      // else {
-      //     showtoast('success', 'Conversation is unhighlighted');
-      // }
+    // const response = await axios.put(
+    //   `http://127.0.0.1:8002/conversation/${i}/highlight`
+    // );
+    //console.log(response.data);
+    //const updatedConvo = response.data;
+
+    // if (updatedConvo === null) {
+    //   return;
+    // } else {
+    //   if (updatedConvo.isHighlighted == true) {
+    //       showtoast('success', 'Conversation is highlighted');
+    //   }
+    //   else {
+    //       showtoast('success', 'Conversation is unhighlighted');
+    //   }
+    // }
+
+    //placeholder
+    let updatedPdf = pdfs.find((pdf) => pdf.id === i);
+    updatedPdf.isHighlighted = !updatedPdf.isHighlighted;
+
+    const updatedPdfs = pdfs.map((pdf) => {
+      if (pdf.id === updatedPdf.id) {
+        return updatedPdf;
+      }
+      return pdf;
+    });
+    setPdfs(updatedPdfs);
+  };
+
+  const togglePublic = async (i) => {
+    console.log(`${i} th convo is made public`);
+
+    // const response = await axios.put(
+    //   `http://
+    //
+    //
+
+    //placeholder
+    let updatedPdf = pdfs.find((pdf) => pdf.id === i);
+    // make public if mine
+    if (updatedPdf.isMine) {
+      updatedPdf.isPublic = !updatedPdf.isPublic;
     }
 
-    const updatedConvos = convos.map((convo) => {
-      if (convo.id === updatedConvo.id) {
-        return updatedConvo;
+    const updatedPdfs = pdfs.map((pdf) => {
+      if (pdf.id === updatedPdf.id) {
+        return updatedPdf;
       }
-      return convo;
+      return pdf;
     });
-    setConvos(updatedConvos);
+    setPdfs(updatedPdfs);
   };
 
-  const visit = (i) => {
-    // navigate to conversation page
-    navigate(`/conversation/${i}`);
+  const visitPdf = (i) => {
+    const link = pdfs.find((pdf) => pdf.id === i).url;
+    window.open(link, "_blank");
   };
 
-  const deleteConvo = async (i) => {
-    console.log(`${i} th convo is deleted`);
-    const response = await axios.delete(
-      `http://127.0.0.1:8002/conversation/${i}/delete`
-    );
-    console.log(response.data);
-    // now we are getting the updated suggestion from the data, delete the suggestion where the id matches
-
-    const updatedConvos = convos.filter((convo) => convo.id !== i);
-    setConvos(updatedConvos);
-    const message = response.data.message;
-    // if (message === "Conversation deleted successfully") {
-    //     showtoast('success', 'conversation is deleted');
-    // }
-  };
-
-  const allPressed = () => {
-    console.log(props.isAll);
-    navigate("/allconvo");
-  };
+  // const allPressed = () => {
+  //   console.log(props.isAll);
+  //   navigate("/allconvo");
+  // };
 
   return (
     <div className="whole-thing-container">
@@ -174,17 +148,17 @@ const ConvoList = (props) => {
 
       <div className="suggestion-list-title-container">
         <div className="flex">
-          <div className="suggestion-list-title">PAST CONVERSATIONS</div>
-          {props.isAll === false ? (
+          <div className="suggestion-list-title">{props.title}</div>
+          {/* {props.isAll === false ? (
             <div className="suggestion-see-all" onClick={() => allPressed()}>
               See All
             </div>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
 
-        <div className="suggestion-title-buttons">
+        {/* <div className="suggestion-title-buttons">
           <div
             className={`suggestion-title-button ${
               selected == "all" ? "selected" : ""
@@ -204,39 +178,28 @@ const ConvoList = (props) => {
             {" "}
             starred
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="suggestion-list-container">
-        {convos &&
-          convos.map((convo, index) =>
-            (selected === "all" ||
-              (selected === "highlighted" && convo.isHighlighted == true)) &&
-            (props.isAll === true || (props.isAll === false && index < 7)) ? (
+        {pdfs &&
+          pdfs.map(
+            (pdf, index) => (
+              // (selected === "all" ||
+              //   (selected === "highlighted" && convo.isHighlighted == true)) &&
+              // (props.isAll === true || (props.isAll === false && index < 7)) ? (
+
               <div className="suggestion-container">
                 <div className="suggestion-text-container">
                   <div
                     className="suggestion-name"
-                    onClick={() => visit(convo.id)}
+                    onClick={() => visitPdf(pdf.id)}
                   >
-                    {convo.name}
+                    {pdf.title}
                   </div>
 
                   {/* <div className='suggestion-horizontal-line'>
                             </div> */}
-
-                  <div className="suggestion-tag">
-                    <div className="tag-icon">
-                      <FontAwesomeIcon icon={faTag} size="1x" />
-                    </div>
-
-                    <div className="suggestion-tag-text">
-                      {convo.isFree ? "Free" : "Paid"}
-                    </div>
-                    <div className="suggestion-tag-text">
-                      {convo.isAdvanced ? "Advanced" : "Beginner"}
-                    </div>
-                  </div>
                 </div>
                 <div className="suggestion-lower-part">
                   {/* <div className='visition'>
@@ -248,30 +211,33 @@ const ConvoList = (props) => {
                   <div className="suggestion-buttons">
                     <div
                       className={`suggestion-button ${
-                        convo.isHighlighted == true ? "imp" : ""
+                        pdf.isHighlighted == true ? "imp" : ""
                       }`}
-                      onClick={() => makeImportant(convo.id)}
+                      onClick={() => makeHighlighted(pdf.id)}
                     >
                       <FontAwesomeIcon icon={faStar} size="1x" />
                     </div>
+
                     <div
                       className="suggestion-button"
-                      onClick={() => visit(convo.id)}
+                      onClick={() => togglePublic(pdf.id)}
                     >
-                      <FontAwesomeIcon icon={faEdit} size="1x" />
+                      <FontAwesomeIcon icon={faFire} size="1x" />
                     </div>
                     <div
                       className="suggestion-button"
-                      onClick={() => deleteConvo(convo.id)}
+                      onClick={() => visitPdf(pdf.id)}
                     >
-                      <FontAwesomeIcon icon={faFire} size="1x" />
+                      <FontAwesomeIcon icon={faEdit} size="1x" />
                     </div>
                   </div>
                 </div>
               </div>
-            ) : (
-              <></>
             )
+
+            // ) : (
+            //   <></>
+            // )
           )}
       </div>
 
@@ -280,4 +246,4 @@ const ConvoList = (props) => {
   );
 };
 
-export default ConvoList;
+export default PdfList;

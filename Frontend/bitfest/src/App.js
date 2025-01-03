@@ -43,7 +43,7 @@ function AppContent() {
         <Route path="/translate" element={<Translator />} />
         <Route path="/conversation/:id" element={<Convo />} />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
-        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
   );
 }
