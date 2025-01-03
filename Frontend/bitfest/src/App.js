@@ -107,7 +107,7 @@ function AppContent() {
                 }
               />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
-        {/* <Route path="/profile/:id" element={<Profile />} /> */}
+        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
   );
 }

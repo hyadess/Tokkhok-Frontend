@@ -1,0 +1,45 @@
+.convo-list-container{
+    padding: 20px;
+    
+}
+
+.convo-list-convo{
+
+    background-color: #c4c4c434;
+    border-radius: 30px;
+    padding: 10px;
+    text-align: left;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.479);
+    margin-top: 9px;
+    display: flex;
+}
+.convo-list-convo:hover{
+    color: rgba(0, 0, 0, 0.623);
+    background-color: #c4c4c494;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.05);
+}
+
+
+.convo-list-text{
+    padding: 8px;
+    width: 70%;
+
+}
+
+.convo-list-button-container{
+    display: flex;
+    justify-content: right;
+}
+
+.convo-list-button{
+    border-radius: 20px;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+.convo-list-button:hover{
+    background-color: rgb(255, 255, 255);
+    color: chocolate
+}

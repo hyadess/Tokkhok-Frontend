@@ -9,10 +9,12 @@ import {
   faPlus,
   faSquarePlus,
   faHouse,
+  faEye,
+  
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Convo.css";
 import axios from "axios";
-// import CreateConvo from "../components/overlays/confirmation";
+import ConvoLineList from "../components/sideLine/sideline";
 const Convo = () => {
   // const { logout } = useAuth();
   // const { id } = useParams();
@@ -102,9 +104,28 @@ const Convo = () => {
         text: "I am a placeholder",
         type: "text",
         sender: "system",
+        pdfs: [
+          {
+            "title": "Placeholder PDF",
+            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          },
+          {
+            "title": "Another Placeholder PDF",
+            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          },
+          {
+            "title": "Yet Another Placeholder PDF",
+            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          },
+        ],
       },
     ];
     setMessages(newMessages);
+  };
+  const handleGeneratePDF = () => {
+    const hardcodedPdfLink =
+      "https://drive.google.com/file/d/1_tYyacHrrXb17U4qEVrqICJHGvVFq8l1/view?usp=drive_link";
+    window.open(hardcodedPdfLink, "_blank");
   };
 
   useEffect(() => {
@@ -178,9 +199,9 @@ const Convo = () => {
           <button className='menu-button add-button' onClick={() => setIsTutor(true)}><FontAwesomeIcon icon={faSquarePlus} size='2x' /></button>
         </div> */}
 
-        {/* <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
-          <ConvoLineList current={id} />
-        </div> */}
+        <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
+          <ConvoLineList current={1} />
+        </div>
 
         <div className="new-convo last">
           {/* <h3 className={`new-convo-text ${isLeftContracted ? 'contracted' : ''}`}>Back-to home</h3> */}
@@ -207,6 +228,18 @@ const Convo = () => {
             message.type === "text" ? (
               <div className={`chat-message ${message.sender}`}>
                 {parseResponse(message.text, message.sender)}
+                {/* add the pdfs as a series of tablets */}
+                {message.pdfs ? (
+                  <div className="pdfs-tablets">
+                    {message.pdfs.map((pdf) => (
+                      <div className="pdf-tablet">
+                        <a href={pdf.url} target="_blank" rel="noreferrer">
+                          {pdf.title}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             ) : (
               <img
@@ -220,6 +253,9 @@ const Convo = () => {
         <div
           className={`input-container ${isLeftContracted ? "contracted" : ""}`}
         >
+          <button className ="pdf-show" onClick={handleGeneratePDF}>
+          <FontAwesomeIcon icon={faEye} size="2x"/>
+          </button>
           <textarea
             type="text"
             className="chat-input"

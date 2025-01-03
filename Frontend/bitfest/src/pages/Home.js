@@ -15,7 +15,7 @@ import {
 import axios from "axios";
 
 
-// import ToolList from "../components/ToolList";
+import ToolList from "../components/ToolList";
 // import ConvoList from "../components/lists/ConvoList";
 
 
@@ -79,8 +79,9 @@ const Home = () => {
 
                 </div> */}
 
-        {/* <ToolList />
-        <ConvoList isAll={false} convos={convos} /> */}
+        <ToolList />
+
+        {/* <ConvoList isAll={false} convos={convos} /> */ }
 
         {/* <CreateConvo isOverlayVisible={isOverlayVisible} toggleOverlay={toggleOverlay} /> */}
 
