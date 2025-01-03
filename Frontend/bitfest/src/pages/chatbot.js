@@ -12,17 +12,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Convo.css";
 import axios from "axios";
-import ConvoLineList from "../components/lineLists/ConvoLineList";
 // import CreateConvo from "../components/overlays/confirmation";
 const Convo = () => {
   // const { logout } = useAuth();
   // const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+  // const handleLogout = () => {
+  //   logout();
+  //   navigate("/login");
+  // };
 
   const [isLeftContracted, setIsLeftContracted] = useState(false);
 
@@ -119,34 +118,34 @@ const Convo = () => {
 
   // at start...............................................................................................
 
-  const loadConversation = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/conversation/${id}/show`
-      );
-      let newMessages = [];
-      response.data.turns.forEach((i) => {
-        let sender = i.turn.sender;
-        i.messages.forEach((j) => {
-          newMessages = [
-            ...newMessages,
-            {
-              text: j.message,
-              type: j.message_type,
-              sender: sender,
-            },
-          ];
-        });
-      });
-      setMessages(newMessages);
-      console.log(messages);
-    } catch (error) {
-      console.error(
-        "Error loading conversation:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
+  // const loadConversation = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8002/conversation/${id}/show`
+  //     );
+  //     let newMessages = [];
+  //     response.data.turns.forEach((i) => {
+  //       let sender = i.turn.sender;
+  //       i.messages.forEach((j) => {
+  //         newMessages = [
+  //           ...newMessages,
+  //           {
+  //             text: j.message,
+  //             type: j.message_type,
+  //             sender: sender,
+  //           },
+  //         ];
+  //       });
+  //     });
+  //     setMessages(newMessages);
+  //     console.log(messages);
+  //   } catch (error) {
+  //     console.error(
+  //       "Error loading conversation:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   }
+  // };
 
   // useEffect(() => {
   //   loadConversation();
@@ -193,10 +192,10 @@ const Convo = () => {
           </button>
         </div>
 
-        <CreateConvo
+        {/* <CreateConvo
           isOverlayVisible={isTutor}
           toggleOverlay={() => setIsTutor(false)}
-        />
+        /> */}
       </div>
 
       <div className={`middle ${isLeftContracted ? "contracted" : ""}`}>

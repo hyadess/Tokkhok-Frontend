@@ -23,7 +23,7 @@ const Login = () => {
     try {
       console.log(email, password);
       const response = await axios.post(
-        "http://127.0.0.1:8002/auth/login",
+        "http://127.0.0.1:8000/api/v1/auth/signin",
         { username: email, password: password },
         {
           headers: {

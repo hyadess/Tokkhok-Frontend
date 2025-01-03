@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Convo from "./pages/chatbot";
+import Arnab from "./pages/Arnab";
 import AuthProvider, { useAuth } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
 
@@ -39,6 +40,7 @@ function AppContent() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/arnab" element={<Arnab />} />
         <Route path="/conversation/:id" element={<Convo />} />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
         {/* <Route path="/profile/:id" element={<Profile />} /> */}

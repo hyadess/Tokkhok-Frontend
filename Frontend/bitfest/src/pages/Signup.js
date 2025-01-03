@@ -13,7 +13,6 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 const Signup = () => {
-  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -24,8 +23,8 @@ const Signup = () => {
     try {
       console.log(email, password);
       const response = await axios.post(
-        "http://127.0.0.1:8002/auth/create",
-        { username: user, email: email, password: password },
+        "http://127.0.0.1:8000/api/v1/auth/signup",
+        { email: email, password: password },
         {
           headers: {
             "Content-Type": "application/json",
@@ -33,8 +32,15 @@ const Signup = () => {
         }
       );
       console.log("Signup response:", response);
-      login(response.data.access_token, response.data.user_id);
-      navigate("/home");
+      if( response.data.message=="User signed up successfully")
+      {
+        navigate("/login");
+      }
+      else
+      {
+        console.log("Signup failed:", response.data.message);
+
+      }
     } catch (error) {
       console.error("Singup failed:", error);
     }
@@ -49,15 +55,6 @@ const Signup = () => {
       <div className="login-container">
         <h2>SIGNUP</h2>
         <form onSubmit={handleSubmit}>
-          <label for="username">Username</label>
-          <input
-            className="h-[45px] mb-2 p-1"
-            type="text"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-            placeholder=""
-            required
-          />
           <label for="email">Email</label>
           <input
             className="h-[45px] mb-2 p-2"
