@@ -49,6 +49,8 @@ export default function CreateNote() {
       prvt: prvt,
       tags: tgs,
     });
+    // some dummy data
+    
     console.log(res.data);
     setSaving(false);
   };

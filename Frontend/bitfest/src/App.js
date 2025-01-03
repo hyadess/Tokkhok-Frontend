@@ -53,62 +53,13 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/translate" element={<Translator />} />
         <Route path="/conversation/:id" element={<Convo />} />
-        <Route
-                path="/notes"
-                element={
-                  
-                    <NotesDashboard />
-                  
-                }
-              />
-              <Route
-                path="/mynotes"
-                element={
-                  
-                    <NotesList />
-                  
-                }
-              />
-              <Route
-                path="/note-viewer/:id"
-                element={
-                  
-                    <NoteViewer />
-                  
-                }
-              />
-              <Route
-                path="/notes-create"
-                element={
-                  
-                    <CreateNote />
-                  
-                }
-              />
-              <Route
-                path="/notes-pdf"
-                element={
-                  
-                    <BookReader />
-                  
-                }
-              />
-              <Route
-                path="/notes-public"
-                element={
-                  
-                    <PublicNotes />
-                  
-                }
-              />
-              <Route
-                path="/note/edit/:id"
-                element={
-                  
-                    <EditNote />
-                  
-                }
-              />
+        <Route path="/notes" element={<NotesDashboard />}/>
+        <Route path="/mynotes" element={ <NotesList />}/>
+        <Route path="/note-viewer/:id" element={<NoteViewer />}/>
+        <Route path="/notes-create" element={<CreateNote />}/>
+        <Route path="/notes-pdf" element={<BookReader />}/>
+        <Route path="/notes-public" element={<PublicNotes />}/>
+        <Route path="/note/edit/:id" element={<EditNote />}/>
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
         <Route path="/profile" element={<Profile />} />
       </Routes>
