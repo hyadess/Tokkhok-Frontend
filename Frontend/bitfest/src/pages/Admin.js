@@ -95,7 +95,7 @@ const Admin = () => {
 
   const updateUserTrain = async (prevUserTrain,isApproved) => {
     try {
-      const response = await axios.patch(
+      const response = await axios.put(
         `https://buet-genesis.onrender.com/api/v1/usertrain/${prevUserTrain.id}`,
         {
           banglish: prevUserTrain.banglish,
@@ -139,7 +139,7 @@ const Admin = () => {
         <div className="flex justify-center ">
           {/* all userTrains  as an array of div*/}
           {allUserTrains.map((userTrain, index) => (
-            <UserTrainShow key={index} userTrain={userTrain} />
+            <UserTrainShow key={index} userTrain={userTrain} updateUserTrain={updateUserTrain}/>
           ))}
         </div>
         <div className="tool-list-title">APPROVED TRAINING PAIRS</div>
@@ -147,7 +147,7 @@ const Admin = () => {
         <div className="flex justify-center ">
           {/* approved userTrains  as an array of div*/}
           {approvedUserTrains.map((userTrain, index) => (
-            <UserTrainShow key={index} userTrain={userTrain} />
+            <UserTrainShow key={index} userTrain={userTrain} updateUserTrain={updateUserTrain}/>
           ))}
         </div>
         <div className="tool-list-title">UNAPPROVED TRAINING PAIRS</div>
