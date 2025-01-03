@@ -14,7 +14,7 @@ import Convo from "./pages/chatbot";
 // import Arnab from "./pages/Arnab";
 import AuthProvider, { useAuth } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
-import Translator from "./components/Translator2";
+import Translator from "./components/Translator";
 import NotesDashboard from './pages/Notes/NotesDashboard';
 import NotesList from './pages/Notes/NotesList';
 import NoteViewer from './pages/Notes/NoteViewer';
