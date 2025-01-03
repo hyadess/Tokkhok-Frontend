@@ -1,24 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-// import "../css/Translator.css";
+
+import "../css/Translator2.css";
 
 const Translator = () => {
   const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+
   const messageListRef = useRef(null);
-
-  // Hardcoded chat histories
-  const hardcodedHistories = [
-    { id: 1, title: "Chat 1", messages: [{ text: "Hello!", sender: "user" }] },
-    { id: 2, title: "Chat 2", messages: [{ text: "How are you?", sender: "user" }] },
-    { id: 3, title: "Chat 3", messages: [{ text: "Translate this!", sender: "user" }] },
-  ];
-
-  useEffect(() => {
-    if (messageListRef.current) {
-      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
-    }
-  }, [chatHistory]);
 
   const handleTranslate = () => {
     if (userMessage.trim() !== "") {
@@ -29,7 +20,7 @@ const Translator = () => {
       setChatHistory(newChatHistory);
       setUserMessage("");
 
-      // Hardcoded translation response
+      // Simulated translation response
       const hardcodedTranslation = "এই বাক্যটি বাংলায় অনুবাদ করা হয়েছে।";
 
       setChatHistory([
@@ -39,34 +30,59 @@ const Translator = () => {
     }
   };
 
-  const handleSelectChat = (chat) => {
-    setSelectedChat(chat.id);
-    setChatHistory(chat.messages);
-  };
+  const handleAudioRecord = () => {
+    if (!isRecording) {
+      // Start recording
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          const mediaRecorder = new MediaRecorder(stream);
+          mediaRecorderRef.current = mediaRecorder;
+          audioChunksRef.current = [];
 
-  const handleGeneratePDF = () => {
-    // Redirect to the hardcoded PDF link
-    const hardcodedPdfLink =
-      "https://drive.google.com/file/d/1_tYyacHrrXb17U4qEVrqICJHGvVFq8l1/view?usp=drive_link";
-    window.open(hardcodedPdfLink, "_blank");
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+              audioChunksRef.current.push(event.data);
+            }
+          };
+
+          mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+            const blobUrl = URL.createObjectURL(audioBlob); // Create Blob URL for local use
+            console.log("Audio Blob URL:", blobUrl);
+            // Add audio message to chat history
+            setChatHistory((prevHistory) => [
+              ...prevHistory,
+              { text: blobUrl, sender: "user", isAudio: true },
+            ]);
+          };
+
+          mediaRecorder.start();
+          setIsRecording(true);
+        })
+        .catch((error) => {
+          console.error("Error accessing microphone:", error);
+        });
+    } else {
+      // Stop recording
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
   };
 
   return (
     <div className="translator-container">
       <div className="sidebar">
         <h3 className="sidebar-title">Chat History</h3>
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search chats..."
+        />
         <div className="chat-list">
-          {hardcodedHistories.map((chat) => (
-            <div
-              key={chat.id}
-              className={`chat-item ${
-                selectedChat === chat.id ? "selected" : ""
-              }`}
-              onClick={() => handleSelectChat(chat)}
-            >
-              {chat.title}
-            </div>
-          ))}
+          <div className="chat-item">Amar Chat</div>
+          <div className="chat-item">Tomar Chat</div>
+          <div className="chat-item">Chat 3</div>
         </div>
       </div>
       <div className="chat-section">
@@ -78,7 +94,11 @@ const Translator = () => {
                 msg.sender === "user" ? "user" : "bot"
               }`}
             >
-              {msg.text}
+              {msg.isAudio ? (
+                <audio controls src={msg.text}></audio>
+              ) : (
+                msg.text
+              )}
             </div>
           ))}
         </div>
@@ -92,8 +112,8 @@ const Translator = () => {
           <button className="translate-button" onClick={handleTranslate}>
             ➤
           </button>
-          <button className="generate-pdf-button" onClick={handleGeneratePDF}>
-            PDF
+          <button className="microphone-button" onClick={handleAudioRecord}>
+            {isRecording ? "🎤 Recording..." : "🎤"}
           </button>
         </div>
       </div>
