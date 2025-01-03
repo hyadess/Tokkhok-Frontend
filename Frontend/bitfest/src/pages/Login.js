@@ -23,7 +23,7 @@ const Login = () => {
     try {
       console.log(email, password);
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/v1/auth/signin",
+        "https://buet-genesis.onrender.com/api/v1/auth/signin",
         { email: email, password: password },
         {
           headers: {

@@ -52,7 +52,7 @@ function AppContent() {
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/translate" element={<Translator />} />
-        <Route path="/conversation/:id" element={<Convo />} />
+        <Route path="/conversation/:chat_id" element={<Convo />} />
         <Route
                 path="/notes"
                 element={
