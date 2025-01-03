@@ -10,14 +10,13 @@ import {
   faSquarePlus,
   faHouse,
   faEye,
-  
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Convo.css";
 import axios from "axios";
 import ConvoLineList from "../components/sideLine/sideline";
 const Convo = () => {
-  // const { logout } = useAuth();
-  // const { id } = useParams();
+  const { logout, token } = useAuth();
+  const { chat_id } = useParams();
   const navigate = useNavigate();
 
   // const handleLogout = () => {
@@ -66,36 +65,43 @@ const Convo = () => {
 
   // backend query...............................................................................................
 
-  // const queryBackend = async () => {
-  //   try {
-  //     const response = await axios.post(`http://127.0.0.1:8002/test/query`, {
-  //       conversation_id: id,
-  //       question: currentQuestion,
-  //       prompt: "answer the query",
-  //     });
-  //     //console.log(response.data);
-  //     let newMessages = messages;
-  //     response.data.messages.forEach((i) => {
-  //       newMessages = [
-  //         ...newMessages,
-  //         {
-  //           text: i.message,
-  //           type: i.message_type,
-  //           sender: "system",
-  //         },
-  //       ];
-  //     });
-  //     setMessages(newMessages);
+  const queryBackend = async () => {
+    try {
+      const response = await axios.put(
+        `https://buet-genesis.onrender.com/api/v1/chats/add_message/${chat_id}`,
+        {
+          content: currentQuestion,
 
-  //     console.log(messages);
-  //   } catch (error) {
-  //     console.error(
-  //       "Error querying backend:",
-  //       error.response ? error.response.data : error.message
-  //     );
-  //   }
-  // };
+        },
+        {
+          Headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        }
+      );
+      //console.log(response.data);
+      let newMessages = messages;
+      response.data.messages.forEach((i) => {
+        newMessages = [
+          ...newMessages,
+          {
+            text: i.message,
+            type: i.message_type,
+            sender: "system",
+          },
+        ];
+      });
+      setMessages(newMessages);
 
+      console.log(messages);
+    } catch (error) {
+      console.error(
+        "Error querying backend:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
 
   const placeholderBackend = async () => {
     let newMessages = [
@@ -106,16 +112,16 @@ const Convo = () => {
         sender: "system",
         pdfs: [
           {
-            "title": "Placeholder PDF",
-            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            title: "Placeholder PDF",
+            url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           },
           {
-            "title": "Another Placeholder PDF",
-            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            title: "Another Placeholder PDF",
+            url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           },
           {
-            "title": "Yet Another Placeholder PDF",
-            "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+            title: "Yet Another Placeholder PDF",
+            url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           },
         ],
       },
@@ -130,8 +136,7 @@ const Convo = () => {
 
   useEffect(() => {
     if (needanswer === 1) {
-      //queryBackend();
-      placeholderBackend();
+      queryBackend();
       setNeedanswer(0);
       setCurrentQuestion("");
     }
@@ -139,38 +144,61 @@ const Convo = () => {
 
   // at start...............................................................................................
 
-  // const loadConversation = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://127.0.0.1:8002/conversation/${id}/show`
-  //     );
-  //     let newMessages = [];
-  //     response.data.turns.forEach((i) => {
-  //       let sender = i.turn.sender;
-  //       i.messages.forEach((j) => {
-  //         newMessages = [
-  //           ...newMessages,
-  //           {
-  //             text: j.message,
-  //             type: j.message_type,
-  //             sender: sender,
-  //           },
-  //         ];
-  //       });
-  //     });
-  //     setMessages(newMessages);
-  //     console.log(messages);
-  //   } catch (error) {
-  //     console.error(
-  //       "Error loading conversation:",
-  //       error.response ? error.response.data : error.message
-  //     );
-  //   }
-  // };
+  const loadConversation = async () => {
+    try {
+      const response = await axios.get(
+        `https://buet-genesis.onrender.com/api/v1/chats/${chat_id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      let newMessages = [];
+      response.data.messages.forEach((i) => {
+        //if i.knowledge is not an empty array, then array of pdfs
+        if (i.knowledge.length > 0) {
+          let pdfs = [];
+          i.knowledge.forEach((j) => {
+            pdfs.push({
+              title: j.file_title,
+              url: j.file_url,
+            });
+          });
+          newMessages = [
+            ...newMessages,
+            {
+              text: i.content,
+              type: "text",
+              sender: i.sender,
+              pdfs: pdfs,
+            },
+          ];
+        } else {
+          newMessages = [
+            ...newMessages,
+            {
+              text: i.content,
+              type: "text",
+              sender: i.sender,
+            },
+          ];
+        }
+      });
+      setMessages(newMessages);
+      console.log(messages);
+    } catch (error) {
+      console.error(
+        "Error loading conversation:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
 
-  // useEffect(() => {
-  //   loadConversation();
-  // }, [id]);
+  useEffect(() => {
+    loadConversation();
+  }, [chat_id]);
 
   const parseResponse = (text, sender) => {
     const parts = text.split(/(```[\s\S]*?```)/);
@@ -253,8 +281,8 @@ const Convo = () => {
         <div
           className={`input-container ${isLeftContracted ? "contracted" : ""}`}
         >
-          <button className ="pdf-show" onClick={handleGeneratePDF}>
-          <FontAwesomeIcon icon={faEye} size="2x"/>
+          <button className="pdf-show" onClick={handleGeneratePDF}>
+            <FontAwesomeIcon icon={faEye} size="2x" />
           </button>
           <textarea
             type="text"
