@@ -14,11 +14,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import CreateConvo from "../components/overlays/CreateConvo";
-
+import ConvoLineList from "../components/sideLine/sideline";
+import UserTrain from "../components/overlays/UserTrain";
 
 import ToolList from "../components/ToolList";
 // import ConvoList from "../components/lists/ConvoList";
-
 
 const Home = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -49,8 +49,6 @@ const Home = () => {
   //   }
   // };
 
-
-
   useEffect(() => {
     if (!userId) {
       navigate("/");
@@ -63,7 +61,6 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="home-center">
         {/* <div className='home-starter'>
                     <div className='home-starter-text'>
@@ -82,10 +79,9 @@ const Home = () => {
 
         <ToolList />
 
-        {/* <ConvoList isAll={false} convos={convos} /> */ }
+        {/* <ConvoList isAll={false} convos={convos} /> */}
 
         {/* <CreateConvo isOverlayVisible={isOverlayVisible} toggleOverlay={toggleOverlay} /> */}
-
       </div>
     </div>
   );

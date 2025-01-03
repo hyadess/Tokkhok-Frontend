@@ -1,6 +1,7 @@
 // src/components/Dashboard.js
 import { React, useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -174,6 +175,7 @@ const Convo = () => {
         }
       );
       let newMessages = [];
+      console.log(response.data.messages);
       response.data.messages.forEach((i) => {
         //if i.knowledge is not an empty array, then array of pdfs
         if (i.knowledge && i.knowledge.length > 0) {
@@ -228,7 +230,7 @@ const Convo = () => {
           </pre>
         );
       }
-      return <div>{part}</div>;
+      return <div><ReactMarkdown>{text}</ReactMarkdown></div>;
     });
   };
 
@@ -246,7 +248,7 @@ const Convo = () => {
         </div> */}
 
         <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
-          <ConvoLineList current={1} />
+          <ConvoLineList />
         </div>
 
         <div className="new-convo last">
