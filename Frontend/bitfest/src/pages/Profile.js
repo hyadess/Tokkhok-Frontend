@@ -17,17 +17,17 @@ const Profile = () => {
   };
 
   // Fetch data from backend based on the selected menu
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`/api/${selectedMenu}`); // Replace with your API endpoint
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [selectedMenu]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/${selectedMenu}`); // Replace with your API endpoint
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [selectedMenu]);
 
   return (
     <div className="container-diff">
@@ -50,7 +50,7 @@ const Profile = () => {
       <div className="middle">
         {/* if selected menu is myPdfs or AllowedPublicPdfs, render PdfList component */}
         {selectedMenu === "myPdfs" || selectedMenu === "AllowedPublicPdfs" ? (
-          <PdfList data={data} />
+          <PdfList data={selectedMenu } />
         ) : (
           <div>
             <h1>{menuTitles[selectedMenu]}</h1>

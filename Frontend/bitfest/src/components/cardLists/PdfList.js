@@ -27,7 +27,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/Toast.css";
-
 //------------------------
 
 const PdfList = (props) => {
@@ -35,8 +34,10 @@ const PdfList = (props) => {
   //useAuth for user id
   //const { userId } = useAuth();
   const navigate = useNavigate();
-
+  const {userId} = useAuth();
+  const [selectedMenu, setSelectedMenu] = useState("myPdfs");
   const [pdfs, setPdfs] = useState([]);
+  
   const dummypdfs = [
     {
       id: 1,
@@ -71,10 +72,27 @@ const PdfList = (props) => {
   //const [selected, setSelected] = useState("all");
 
   useEffect(() => {
-    console.log("convos:", props.pdfs);
-    setPdfs(props.pdfs);
-    setPdfs(dummypdfs);
-  }, [props.pdfs]);
+    setSelectedMenu(props.data);
+    const fetchData = async () => {
+      try {
+        let api = `https://buet-genesis.onrender.com/api/v1/files/user/${userId}`;
+        if(props.data === "AllowedPublicPdfs")
+          api = `https://buet-genesis.onrender.com/api/v1/files/user/public/${userId}`;
+
+        console.log("Hayreeeeee API ", api);
+        const response = await axios.get(api);
+        setPdfs(response.data);
+        console.log("Response data ", response.data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchData();
+  }, [props.data, userId]);
+
+  useEffect(() => {
+    console.log("Pdfs state ", pdfs); // Log pdfs state whenever it changes
+  }, [pdfs]);
 
   const makeHighlighted = async (i) => {
     console.log(`${i} th convo is made important`);
@@ -122,6 +140,9 @@ const PdfList = (props) => {
     // make public if mine
     if (updatedPdf.isMine) {
       updatedPdf.isPublic = !updatedPdf.isPublic;
+      // api: PUT /api/v1/files/{file_id}
+      
+
     }
 
     const updatedPdfs = pdfs.map((pdf) => {
@@ -134,7 +155,7 @@ const PdfList = (props) => {
   };
 
   const visitPdf = (i) => {
-    const link = pdfs.find((pdf) => pdf.id === i).url;
+    const link = pdfs.find((pdf) => pdf.id === i).file_url;
     window.open(link, "_blank");
   };
 
@@ -149,7 +170,7 @@ const PdfList = (props) => {
 
       <div className="suggestion-list-title-container">
         <div className="flex">
-          <div className="suggestion-list-title">{props.title}</div>
+          <div className="suggestion-list-title">{selectedMenu}</div>
           {/* {props.isAll === false ? (
             <div className="suggestion-see-all" onClick={() => allPressed()}>
               See All
@@ -185,7 +206,7 @@ const PdfList = (props) => {
       <div className="suggestion-list-container">
         {pdfs &&
           pdfs.map(
-            (pdf, index) => (
+            (pdf) => (
               // (selected === "all" ||
               //   (selected === "highlighted" && convo.isHighlighted == true)) &&
               // (props.isAll === true || (props.isAll === false && index < 7)) ? (
@@ -196,9 +217,9 @@ const PdfList = (props) => {
                     className="suggestion-name"
                     onClick={() => visitPdf(pdf.id)}
                   >
-                    {pdf.title}
+                    {pdf.file_title}
                   </div>
-
+                  {pdf.file_caption}
                   {/* <div className='suggestion-horizontal-line'>
                             </div> */}
                 </div>
