@@ -81,7 +81,7 @@ export default function CreateNote() {
           alignItems: "center",
           justifyContent: "center",
         }}
-        className="w-full dark:bg-slate-900"
+        className="w-full-max-w-10 dark:bg-slate-800"
       >
         {!saving && (
           <div>

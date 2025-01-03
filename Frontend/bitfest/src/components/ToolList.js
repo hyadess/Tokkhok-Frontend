@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/ToolList.css";
 import CreateConvo from "./overlays/CreateConvo";
+import UserTrain from "./overlays/UserTrain";
 import axios from "axios";
 
 const ToolList = () => {
@@ -22,6 +23,7 @@ const ToolList = () => {
   const navigate = useNavigate();
   //const { userId } = useAuth();
   const [isTutor, setIsTutor] = useState(false);
+  const [isUserTrain, setIsUserTrain] = useState(false);
   return (
     <div className="tool-list-container">
       <div className="tool-list-title">OUR TOOLS</div>
@@ -38,11 +40,22 @@ const ToolList = () => {
             <div className="tool-name">Chatbot</div>
           </div>
         </div>
+        <div className="tool-container" onClick={() => setIsUserTrain(true)}>
+          {/* <div className='tool-image'>
+                        <FontAwesomeIcon icon={faChalkboard} size='1x' />
+                    </div> */}
+          <div className="tool-text">
+            <div className="tool-name">HELP US IMPROVE</div>
+          </div>
+        </div>
       </div>
       <CreateConvo
         isOverlayVisible={isTutor}
         toggleOverlay={() => setIsTutor(false)}
       />
+      <UserTrain
+        isOverlayVisible={isUserTrain}
+        toggleOverlay={() => setIsUserTrain(false)}/>
     </div>
   );
 };
