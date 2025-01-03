@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../css/Translator.css";
+import "../css/Translator2.css";
 
 const Translator = () => {
   const [userMessage, setUserMessage] = useState("");
