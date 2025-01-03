@@ -29,9 +29,37 @@ export default function NotesList() {
 
     let topic=urlParams.topic
     const getData=async()=>{
-        const res=await axios.get(BASE_URL+"/notes/"+buldrUser)
-        setData(res.data)
-        console.log(res.data)
+        // const res=await axios.get(BASE_URL+"/notes/"+buldrUser)
+        // setData(res.data)
+        // console.log(res.data)
+        const dummyNotes = [
+            {
+              title: "Hello World",
+              subtitle: "subtitle-hehe",
+              image: "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-98.jpg?t=st=1735924028~exp=1735927628~hmac=55e69c84c0516951d85e728afed1bd0c499ba3239df436a94793324bb5a181e0&w=900",
+              content: "# Content - Hello World",
+              prvt: false,
+              tags: ["graphql","react"]
+            },
+            {
+              title: "Hello World",
+              subtitle: "subtitle-hehe",
+              image: "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-98.jpg?t=st=1735924028~exp=1735927628~hmac=55e69c84c0516951d85e728afed1bd0c499ba3239df436a94793324bb5a181e0&w=900",
+              content: "# Content - Hello World",
+              prvt: false,
+              tags: ["graphql","react"]
+            },
+            {
+              title: "Hello World",
+              subtitle: "subtitle-hehe",
+              image: "https://img.freepik.com/free-vector/colorful-watercolor-background_79603-98.jpg?t=st=1735924028~exp=1735927628~hmac=55e69c84c0516951d85e728afed1bd0c499ba3239df436a94793324bb5a181e0&w=900",
+              content: "# Content - Hello World",
+              prvt: false,
+              tags: ["graphql","react"]
+            }
+          ];
+            setData(dummyNotes);
+        
         setLoading(false)
     }
     const deleteNote=async(id)=>{

@@ -1,5 +1,5 @@
 # Running the Backend
-
+## FastAPI Backend
 ## Virtual environment
 Make sure python3-venv is in your machine
 ```bash
@@ -41,7 +41,7 @@ http://127.0.0.1:8000/docs
 Here, you can explore and interact with the various API endpoints.
 
 
-# Make changes in the database
+## Make changes in the database
 execute the following command
 ```bash
 ./push.sh
@@ -71,6 +71,9 @@ we have used Qdrant for vector database
 ## Embedding model
 we have used the text-embedding-3-large model for generating embedding
 
+## Pdf Font
+used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/Noto+Sans+Bengali?query=bangla)
+
 ## File-ingestion Pipeline
 - We receive the "pure bangla text" from the text editor
 - we generate a suitable title and caption for the file
@@ -87,6 +90,21 @@ we have used the text-embedding-3-large model for generating embedding
 - we fetch k-most relevant chunks
 - then we feed the query and fetched chunks to AI-agent
 - AI agent then generates Bengali response using our custom knowledge base
+
+## Translation Generation:
+- We have used Few-shot prompting that is used as a technique to enable in-context learning
+- Our users contribute in geenrating learning samples ({banglish, bangla} pairs)
+- admins approve some of them
+- The approved pairs are used as few shot inferencing
+- Future plan is to run a cron job (after 1 week) to collect the approved samples and use them to train model using openai's fine-tune api. Currently it could not be done due to costing reasons
+
+## Audio chat Pipeline
+- we used OpenAI's whisper-1 model for generating transcript for user speech
+- We generated embedding for transcripted text
+- we searched vector database for relevant chunks
+- we fed knowledge and query to AI-agent. It responded in text
+- with browsers SpeechSynthesis api, we can convert the textual response to speech
+- After returning the audio response, we did the db-storing activities using FastAPI's background task
   
 
 ## deployment
