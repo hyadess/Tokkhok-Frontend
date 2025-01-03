@@ -54,7 +54,7 @@ const Navbar = () => {
             <div className="navbar-last">
               <button
                 className="user-button-container"
-                onClick={() => navigate(`/profile/${userId}`)}
+                onClick={() => navigate(`/profile`)}
               >
                 <FontAwesomeIcon icon={faUser} size="2x" />
               </button>
