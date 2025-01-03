@@ -26,6 +26,7 @@ import EditNote from "./pages/Notes/EditNote";
 import Profile from "./pages/Profile";
 import Navbar from "./components/navbar/Navbar";
 import UserTrain from "./components/overlays/UserTrain";
+import Admin from "./pages/Admin";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { token } = useAuth();
   return (
@@ -59,6 +60,7 @@ function AppContent() {
       <Route path="/notes-pdf" element={<BookReader />} />
       <Route path="/notes-public" element={<PublicNotes />} />
       <Route path="/note/edit/:id" element={<EditNote />} />
+      <Route path="/admin" element={<Admin />} />
       {/* <Route path="/allconvo" element={<AllConvo />} /> */}
       <Route path="/profile" element={<Profile />} />
     </Routes>
