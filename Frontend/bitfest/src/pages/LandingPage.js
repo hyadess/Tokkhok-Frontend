@@ -1,4 +1,4 @@
-// import Navbar from "../components/Navbar"
+import Navbar from "../components/navbar/Navbar"
 import landingpage1 from '../resources/images/landiing1.webp'
 import landingpage2 from '../resources/images/landing2.webp'
 import landingpage3 from '../resources/images/landing3.jpg'
@@ -8,7 +8,7 @@ const LandingPage = ()=>{
 
     return(
         <div>           
-            {/* <Navbar /> */}
+            <Navbar />
             <div className="w-[100%] md:h-[75vh] bg-[#cadcf8]">
                 <div className="w-[100%] grid grid-cols-1 md:grid-cols-[55%_45%] h-[100%] ">
 
