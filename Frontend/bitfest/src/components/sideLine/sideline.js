@@ -24,39 +24,28 @@ import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./../../css/Toast.css";
+import "../../css/Toast.css";
 
 //------------------------
 
 const ConvoLineList = ({ current }) => {
-  // const convos = [
-  //     {
-  //         "id": 1,
-  //         "name": "convo 1",
-  //         "description": "convo 1",
-  //     },
-  //     {
-  //         "id": 2,
-  //         "name": "convo 2",
-  //         "description": "convo 2",
-  //     },
-  //     {
-  //         "id": 3,
-  //         "name": "convo 3",
-  //         "description": "convo 3",
-  //     },
 
-  // ];
-
+  
   const [convos, setConvos] = useState([]);
-  const { userId } = useAuth();
+  const { userId,token } = useAuth();
   //navigate
   const navigate = useNavigate();
 
   const myConvos = async () => {
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8002/conversation/${userId}/get_normal`
+        `https://buet-genesis.onrender.com/api/v1/chats/users/${userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(response);
       setConvos(response.data);
@@ -67,6 +56,8 @@ const ConvoLineList = ({ current }) => {
       );
     }
   };
+
+
   const showToast = (type, text) => {
     toast(text, {
       type: { type }, // or 'success', 'error', 'warning', 'info'
@@ -85,12 +76,22 @@ const ConvoLineList = ({ current }) => {
   const openConvo = (index) => {
     //navigate to the convo
     navigate(`/conversation/${index}`);
+    //toast
+    showToast("success", "conversation is opened");
+  
   };
   const deleteConvo = async (i) => {
     console.log(`${i} th convo is deleted`);
     const response = await axios.delete(
-      `http://127.0.0.1:8002/conversation/${i}/delete`
+      `https://buet-genesis.onrender.com/api/v1/chats/${i}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+
     console.log(response.data);
     // now we are getting the updated suggestion from the data, delete the suggestion where the id matches
 
@@ -118,7 +119,7 @@ const ConvoLineList = ({ current }) => {
               <div></div>
             ) : (
               <div className="convo-list-convo">
-                <div className="convo-list-text">{convo.name}</div>
+                <div className="convo-list-text">{convo.chat_name}</div>
 
                 <div className="convo-list-button-container">
                   <div

@@ -16,22 +16,9 @@ import "./CreateConvo.css";
 
 const CreateConvo = (props) => {
   // from props, we will get isOverlayVisible and toggleOverlay
-  const { userId } = useAuth();
+  const { userId, token } = useAuth();
   const navigate = useNavigate();
   const [sessionName, setSessionName] = useState("");
-
-  const [paid, setPaid] = useState("FREE");
-  const [hardness, setHardness] = useState("BEGINNER");
-
-  const togglePaid = () => {
-    if (paid === "FREE") setPaid("PAID");
-    else setPaid("FREE");
-  };
-
-  const toggleHardness = () => {
-    if (hardness === "BEGINNER") setHardness("ADVANCED");
-    else setHardness("BEGINNER");
-  };
 
   const convoCreateRequest = async () => {
     try {
@@ -47,16 +34,19 @@ const CreateConvo = (props) => {
         return;
       }
 
-      const response = await axios.post(
-        "http://127.0.0.1:8002/conversation/create",
-        {
-          name: sessionName,
-          user_id: userId,
-          isFree: paid === "FREE",
-          isAdvanced: hardness === "ADVANCED",
-          isTeacher: false,
-        }
-      );
+      const url = "https://buet-genesis.onrender.com/api/v1/chats/"; // Replace with your actual endpoint URL
+      const data = {
+        user_id: userId,
+        public_file_ids: [],
+        chat_name: sessionName,
+      };
+
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json", // Set appropriate headers
+          "Authorization": `Bearer ${token}`, // Pass the bearer token here
+        },
+      });
 
       props.toggleOverlay();
       setSessionName("");
@@ -103,23 +93,6 @@ const CreateConvo = (props) => {
           >
             <FontAwesomeIcon icon={faPaperPlane} size="xs" />
           </button>
-        </div>
-
-        <div className="create-convo-options">
-          <div
-            className={`create-convo-option ${paid == "FREE" ? "" : "red"}`}
-            onClick={() => togglePaid()}
-          >
-            {paid}
-          </div>
-          <div
-            className={`create-convo-option ${
-              hardness == "BEGINNER" ? "" : "red"
-            }`}
-            onClick={() => toggleHardness()}
-          >
-            {hardness}
-          </div>
         </div>
       </div>
     </div>

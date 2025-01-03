@@ -85,10 +85,10 @@
 .chat-message.user {
   background-color: #90d093d9;
   text-align: right;
-
   border-radius: 30px;
   color: white;
   word-wrap: break-word;
+  
   /* Ensure long words break */
   white-space: normal;
   width: fit-content;
@@ -97,7 +97,7 @@
 
 }
 
-.chat-message.system {
+.chat-message.assistant {
   text-align: left;
 }
 
@@ -312,4 +312,31 @@ code {
 .overlay-cross-button:hover {
   transform: scale(1.2);
   transition: 0.3s ease-in-out;
+}
+
+
+.pdfs-tablets{
+  display: flex;
+  flex-direction: row;
+  
+  align-items: left;
+  margin-top: 20px; 
+}
+.pdf-tablet{
+  border-radius: 10px;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-size: small;
+
+}
+
+.pdf-show{
+
+  margin-right: 20px;
 }

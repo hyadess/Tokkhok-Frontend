@@ -44,3 +44,48 @@
   font-size: large;
 }
 
+.pdf-item{
+  justify-content: space-between;
+  padding: 10px;
+  font-size: large;
+
+}
+
+.pdf-search-bar{
+  padding: 10px;
+  border-width: 3px;
+  border-color: blueviolet;
+  font-size: large;
+  border: 2 solid #874F41;
+  border-style: solid;
+
+}
+
+.usertrain-text{
+  font-size: medium;
+}
+
+.usertrain-div{
+  padding: 10px;
+  border-width: 1px;
+  border-radius: 20px;
+  border-color: blueviolet;
+  font-size: large;
+  border: 2 solid #874F41;
+  border-style: solid;
+  margin: 10px;
+}
+
+.usertrain-button{
+  padding: 2px;
+  background-color: green;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 4px;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+  margin-top: 20px;
+
+}
