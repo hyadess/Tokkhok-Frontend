@@ -1,0 +1,11 @@
+.toast-container {
+    font-size: 16px;
+    background-color: #323131;
+    border-radius: 30px;
+    color: #e3e3e3;
+  }
+  
+  .toast-body {
+    color: #e3e3e3;
+    font-weight: bold;
+  }

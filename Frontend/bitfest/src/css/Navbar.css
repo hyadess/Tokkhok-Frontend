@@ -1,0 +1,84 @@
+.navbar{
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-button-container{
+    display: flex;
+    padding-left: 200px;
+    width: 80%;
+}
+
+.cursor{
+    cursor: pointer;
+}
+
+.navbar-button{
+    padding: 10px;
+    padding-left: 70px;
+    padding-right: 90px;
+    
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition-duration: 0.4s;
+}
+.navbar-button:hover{
+    color: rgb(172, 66, 66);
+    scale: 1.2;
+    font-weight: bolder;
+}
+
+.navbar-user-container{
+    display: flex;
+    width: 20%;
+}
+
+.navbar-last{
+    position:absolute;
+    right: 0%;
+    margin: 0px;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+
+.button-text{
+    font-weight: bold;
+    padding: 10px;
+
+}
+
+
+
+.logout-button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    border-radius: 5px;
+    padding: 10px 24px;
+}
+
+.navbar-logo-name{
+    padding-left: 20px;
+    /* opacity: 0.7; */
+}
+
+.user-button-container{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.user-button-container:hover{
+    color: rgb(172, 66, 66);
+    scale: 1.2;
+    font-weight: bolder;
+}

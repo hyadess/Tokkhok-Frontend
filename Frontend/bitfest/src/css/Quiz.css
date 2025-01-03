@@ -1,0 +1,203 @@
+.container-diff {
+  display: flex;
+  height: 100vh;
+}
+
+/* -------------------------------------------------------------- */
+
+.left {
+  display: block;
+  width: 20%;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  transition: width 0.2s ease-in;
+  /* Animation for width change */
+}
+
+.left.contracted {
+  width: 5%;
+}
+
+
+/* -------------------------------------------------------------- */
+.middle {
+  width: 80%;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.middle.contracted {
+  width: 95%;
+}
+
+
+.menu-button {
+  background-color: transparent;
+  /* Default background color */
+  border: none;
+  margin: 5px;
+  align-items: center;
+  /* If this is meant for flexbox, ensure parent has display: flex; */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  /* Animation for color change */
+  width: 7%;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.chat-container {
+  margin-top: 40px;
+  height: 700px;
+  /* Adjust height based on other elements */
+  overflow-y: scroll;
+  /* Enable scrolling for chat messages */
+  padding-left: 300px;
+  padding-right: 300px;
+}
+
+.chat-container.contracted {
+  padding-left: 450px;
+  padding-right: 450px;
+}
+
+/* For the entire scrollbar */
+.chat-container::-webkit-scrollbar {
+  width: 16px;
+  /* Width of the scrollbar */
+  height: 2px;
+  /* Height of the scrollbar */
+}
+
+/* Track (the background of the scrollbar) */
+.chat-container::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+}
+
+/* Handle (the draggable part of the scrollbar) */
+.chat-container::-webkit-scrollbar-thumb {
+  background: #d1d0d0;
+  border-radius: 14px;
+  height: 10px;
+  width: 10px;
+}
+
+/* ------------------------------------------------------------------------------------- */
+
+.quiz-title {
+  padding: 10px;
+  background-color: #f0f0f0;
+  text-align: center;
+  font-weight: bold;
+  font-size: x-large;
+  border-radius: 30px;
+}
+
+.question-container {
+  margin-top: 20px;
+}
+
+
+
+.question {
+  margin-top: 40px;
+  text-align: left;
+  font-weight: normal;
+  font-size: large;
+  display: flex;
+  
+
+}
+
+.question-no{
+  background-color: #4ac74aa4;
+  border-radius: 30px;
+  width: fit-content;
+  padding: 10px;
+  color: whitesmoke;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 10px;
+
+}
+
+.question-text{
+  background-color: #f0f0f0a4;
+  border-radius: 30px;
+  width: fit-content;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+
+.option{
+  margin-left:50px;
+  margin-top: 10px;
+  display: flex;
+}
+
+.option-text {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: medium;
+  border-radius: 30px;
+  width: fit-content;
+  color: black;
+  cursor: pointer;
+  
+}
+
+.option-text.selected {
+  background-color: rgba(255, 166, 0, 0.993);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.option-text:hover {
+  background-color: #fff5a091;
+  color: black;
+
+}
+
+/* ------------------------------------------------------------------------------------- */
+
+.quiz-buttons{
+  margin: 60px;
+  margin-left: 320px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  width: fit-content;
+
+
+}
+
+.quiz-button{
+  text-align: center;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: fit-content;
+  background-color: rgba(0, 128, 0, 0.459);
+  color: white;
+  border-radius: 20px;
+  margin-left: 20px;
+  font-weight: bold;
+  cursor: pointer;
+
+}
+
+.quiz-button.clear{
+  background-color: rgba(255, 0, 0, 0.445);
+}
+
+
+.right-answer{
+
+  margin-top: 0px;
+  color: green;
+}

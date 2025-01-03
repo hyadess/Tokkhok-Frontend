@@ -1,0 +1,46 @@
+.home-center {
+  padding-right: 20%;
+  padding-left: 20%;
+  text-align: center;
+  font-size: 50px;
+}
+
+.home-starter {
+  background-color: #90AEAD;
+  display: flex;
+}
+
+.home-starter-text {
+  width: 60%;
+}
+
+.heading {
+  font-size: 50px;
+  font-weight: bold;
+  padding: 40px;
+  padding-bottom: 10px;
+  text-align: left;
+  color: #FBE9D0;
+}
+
+.subheading {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 40px;
+  padding-top: 10px;
+  text-align: left;
+  color: #874F41;
+}
+
+.home-starter-button {
+  width: 40%;
+  padding: 10px;
+  background-color: transparent;
+  color: #FBE9D0;
+  border: 3px solid #FBE9D0;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+}
+

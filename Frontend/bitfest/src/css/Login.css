@@ -1,0 +1,97 @@
+.whole {
+  background-color: #d3d3d3;
+}
+
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 94vh;
+  /* Fill viewport height */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+.logo {
+  width: 100px;
+  /* Adjust logo size */
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  padding: 30px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e3e3e3;
+}
+
+label {
+  margin-bottom: 5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  opacity: 0.6;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-right: 5px;
+}
+
+input[type="checkbox"] {
+  margin-right: 7px;
+
+}
+
+button[type="submit"] {
+  padding: 12px 20px;
+  background-color: #57BA98;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.little-text {
+  font-size: 14px;
+  margin-bottom: 10px;
+  opacity: 0.6;
+  color: #3b33a4;
+}
+
+
+.home-icon {
+  background-color: transparent;
+  padding-top: 20px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+

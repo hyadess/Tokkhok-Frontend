@@ -13,7 +13,7 @@ import {
 import "../css/Convo.css";
 import axios from "axios";
 import ConvoLineList from "../components/lineLists/ConvoLineList";
-import CreateConvo from "../components/overlays/CreateConvo";
+import CreateConvo from "../components/overlays/confirmation";
 const Convo = () => {
   const { logout } = useAuth();
   const { id } = useParams();
