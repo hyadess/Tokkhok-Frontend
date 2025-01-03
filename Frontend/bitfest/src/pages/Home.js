@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
-// import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import home_image from "../resources/images/code-tutor.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,7 +26,7 @@ const Home = () => {
   };
 
   /// get my suggestions
-  // const { userId } = useAuth();
+  const { userId } = useAuth();
   const navigate = useNavigate();
 
   //get suggestions as soon as the page loads
@@ -50,11 +50,11 @@ const Home = () => {
 
 
 
-  // useEffect(() => {
-  //   if (!userId) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!userId) {
+      navigate("/");
+    }
+  }, []);
 
   // useEffect(() => {
   //   myConvos();
@@ -62,7 +62,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="home-center">
         {/* <div className='home-starter'>
                     <div className='home-starter-text'>

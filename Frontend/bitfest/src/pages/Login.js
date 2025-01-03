@@ -32,7 +32,7 @@ const Login = () => {
         }
       );
       console.log("Login response:", response);
-      login(response.data.access_token, response.data.user_id);
+      login(response.data.session.access_token, response.data.session.user.id);
       navigate("/home");
     } catch (error) {
       console.error("Login failed:", error);

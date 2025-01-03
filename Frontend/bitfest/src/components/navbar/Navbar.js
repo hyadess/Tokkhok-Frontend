@@ -1,7 +1,7 @@
 import { React, useState, useRef, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "../css/Navbar.css";
+import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPaperPlane,
@@ -13,7 +13,7 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "../css/Navbar.css";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { logout, userId } = useAuth();
@@ -30,23 +30,7 @@ const Navbar = () => {
     setSelected("home");
     navigate("/home");
   };
-  const suggestionClick = () => {
-    setSelected("suggestion");
-    navigate("/suggestion");
-    //re render the navbar when the selected is changed
-  };
-  const lectureClick = () => {
-    setSelected("lecture");
-    navigate("/allLectures");
-  };
-  const quizClick = () => {
-    setSelected("quiz");
-    navigate("/allquiz");
-  };
-  const chatbotClick = () => {
-    setSelected("chatbot");
-    navigate("/allconvo");
-  };
+  
 
   return (
     <div className="navbar items-center">
@@ -67,40 +51,6 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <div className="navbar-button-container">
-              <button
-                className={`navbar-button`}
-                onClick={() => homeClick()}
-              >
-                HOME
-              </button>
-              <button
-                className={`navbar-button`}
-                onClick={() => suggestionClick()}
-              >
-                SUGGESTION
-              </button>
-              <button
-                className={`navbar-button`}
-                onClick={() => lectureClick()}
-              >
-                LECTURE
-              </button>
-              <button
-                className={`navbar-button`}
-                onClick={() => quizClick()}
-              >
-                QUIZ
-              </button>
-              <button
-                className={`navbar-button`}
-                onClick={() => chatbotClick()}
-              >
-                CHATBOT
-              </button>
-            </div>
-
-
             <div className="navbar-last">
               <button
                 className="user-button-container"
