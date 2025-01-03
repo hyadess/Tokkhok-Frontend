@@ -20,15 +20,8 @@ import axios from "axios";
 const ToolList = () => {
   // navigate to conversation
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  //const { userId } = useAuth();
   const [isTutor, setIsTutor] = useState(false);
-
-  const gotToConversation = async () => {
-    //navigate to conversation
-
-    navigate(`/conversation/${userId}`);
-  };
-
   return (
     <div className="tool-list-container">
       <div className="tool-list-title">OUR TOOLS</div>
