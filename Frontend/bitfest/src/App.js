@@ -15,6 +15,14 @@ import Convo from "./pages/chatbot";
 import AuthProvider, { useAuth } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
 import Translator from "./components/Translator2";
+import NotesDashboard from './pages/Notes/NotesDashboard';
+import NotesList from './pages/Notes/NotesList';
+import NoteViewer from './pages/Notes/NoteViewer';
+import CreateNote from './pages/Notes/CreateNote';
+import BookReader from './pages/Notes/BookReader';
+import ReadingRoomContextProvider from './context/ReadingRoomContextProvider';
+import PublicNotes from './pages/Notes/PublicNotes';
+import EditNote from './pages/Notes/EditNote';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { token } = useAuth();
   return (
@@ -42,6 +50,62 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/translate" element={<Translator />} />
         <Route path="/conversation/:id" element={<Convo />} />
+        <Route
+                path="/notes"
+                element={
+                  
+                    <NotesDashboard />
+                  
+                }
+              />
+              <Route
+                path="/mynotes"
+                element={
+                  
+                    <NotesList />
+                  
+                }
+              />
+              <Route
+                path="/note-viewer/:id"
+                element={
+                  
+                    <NoteViewer />
+                  
+                }
+              />
+              <Route
+                path="/notes-create"
+                element={
+                  
+                    <CreateNote />
+                  
+                }
+              />
+              <Route
+                path="/notes-pdf"
+                element={
+                  
+                    <BookReader />
+                  
+                }
+              />
+              <Route
+                path="/notes-public"
+                element={
+                  
+                    <PublicNotes />
+                  
+                }
+              />
+              <Route
+                path="/note/edit/:id"
+                element={
+                  
+                    <EditNote />
+                  
+                }
+              />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
         {/* <Route path="/profile/:id" element={<Profile />} /> */}
       </Routes>
@@ -52,9 +116,11 @@ function App() {
   return (
     <div>
       <AuthProvider>
+      <ReadingRoomContextProvider>
         <Router>
           <AppContent />
         </Router>
+        </ReadingRoomContextProvider>
       </AuthProvider>
     </div>
   );
