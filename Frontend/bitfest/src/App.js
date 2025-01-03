@@ -23,6 +23,9 @@ import BookReader from './pages/Notes/BookReader';
 import ReadingRoomContextProvider from './context/ReadingRoomContextProvider';
 import PublicNotes from './pages/Notes/PublicNotes';
 import EditNote from './pages/Notes/EditNote';
+import Profile from './pages/Profile';
+import Navbar from "./components/navbar/Navbar";
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { token } = useAuth();
   return (
@@ -107,7 +110,7 @@ function AppContent() {
                 }
               />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
-        {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/profile" element={<Profile />} />
       </Routes>
   );
 }
@@ -118,6 +121,7 @@ function App() {
       <AuthProvider>
       <ReadingRoomContextProvider>
         <Router>
+          <Navbar />
           <AppContent />
         </Router>
         </ReadingRoomContextProvider>

@@ -73,6 +73,7 @@ const PdfList = (props) => {
   useEffect(() => {
     console.log("convos:", props.pdfs);
     setPdfs(props.pdfs);
+    setPdfs(dummypdfs);
   }, [props.pdfs]);
 
   const makeHighlighted = async (i) => {
