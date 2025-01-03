@@ -1,0 +1,208 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.454);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    /* Prevent interaction when hidden */
+}
+
+
+
+.overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+    /* Allow interaction when visible */
+}
+
+.overlay-content {
+    background-color: #ffffff;
+    margin-left: 780px;
+    margin-top: 400px;
+    border-radius: 30px;
+    width: 18%;
+    text-align: center;
+}
+.overlay-content-suggestion {
+    background-color: #ffffff;
+    margin-left: 780px;
+    margin-top: 400px;
+    border-radius: 30px;
+    width: 22%;
+    text-align: center;
+}
+
+.overlay-content-2{
+    background-color: #ffffff;
+    margin-left: 375px;
+    margin-top: 200px;
+    border-radius: 30px;
+    width: 60%;
+    text-align: center;
+}
+
+
+.overlay-cross-button-container {
+    padding: 10px;
+    justify-content: right;
+}
+
+
+.overlay-cross-button {
+    padding: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    border-radius: 20px;
+    background-color: rgba(255, 0, 0, 0.678);
+    color: white;
+    width: fit-content;
+    font-size: x-large;
+    font-weight: bolder;
+    align-content: right;
+    cursor: pointer;
+}
+
+
+.overlay-cross-button:hover {
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+
+
+.input-field {
+
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 8px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.308);
+    border-radius: 40px;
+    align-content: center;
+    opacity: 0.7;
+}
+
+
+
+.session-text {
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    text-align: center;
+    color: #874F41;
+    opacity: 0.6;
+}
+
+
+.name-submit-buttond {
+    padding: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 10px;
+    margin-right: 5px;
+    /* border: 1px solid #57BA98;
+    border-radius: 30px; */
+    color: rgb(121, 150, 121);
+    cursor: pointer;
+}
+
+.name-submit-buttond:hover{
+    /* background-color: #57BA98;
+    border-radius: 30px; */
+    color: rgb(81, 152, 78);
+    scale: 1.2;
+    transition: 0.3s ease-in-out;
+}
+
+
+
+.name-cancel-button {
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #ba576b;
+    border: none;
+    border-radius: 20px;
+    color: whitesmoke;
+}
+
+
+
+.flex-div {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-convo-options{
+    padding: 10px;
+    padding-top: 20px;
+    display: flex;
+}
+
+.create-convo-option{
+    font-size: small;
+    font-weight: bold;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #57BA98;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    margin-left: 10px;
+}
+.create-convo-option.red{
+    background-color: #ba576b;
+    transition: 0.3s ease-in-out;
+}
+
+
+
+.suggestion-title-buttons-2 {
+    display: flex;
+    padding: 20px;
+
+}
+
+
+
+.suggestion-title-button {
+    font-size: medium;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.144);
+    font-weight: bold;
+    color: rgba(77, 77, 77, 0.685);
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 20px;
+    width: fit-content;
+
+}
+
+.suggestion-title-button.selected {
+    border: none;
+    color: white;
+    background-color: rgba(0, 128, 0, 0.61);
+
+}
+
+
+
+
+  
