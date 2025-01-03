@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+import Convo from "./pages/chatbot";
+import AuthProvider, { useAuth } from "./context/AuthContext";
+import Profile from "./pages/profile";
+import LandingPage from "./pages/LandingPage";
+import Navbar from "./components/Navbar";
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { token } = useAuth();
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        token ? (
+          <Component {...props} />
+        ) : (
+          <Route path="/" element={<Navigate replace to={"/login"} />} />
+        )
+      }
+    />
+  );
+};
+
+function AppContent() {
+
+  return (
+
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/conversation/:id" element={<Convo />} />
+        {/* <Route path="/allconvo" element={<AllConvo />} /> */}
+        <Route path="/profile/:id" element={<Profile />} />
+      </Routes>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AuthProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AuthProvider>
     </div>
   );
 }

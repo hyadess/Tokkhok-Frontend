@@ -13,10 +13,10 @@ import {
 import "../css/Convo.css";
 import axios from "axios";
 import ConvoLineList from "../components/lineLists/ConvoLineList";
-import CreateConvo from "../components/overlays/confirmation";
+// import CreateConvo from "../components/overlays/confirmation";
 const Convo = () => {
-  const { logout } = useAuth();
-  const { id } = useParams();
+  // const { logout } = useAuth();
+  // const { id } = useParams();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -95,9 +95,23 @@ const Convo = () => {
     }
   };
 
+
+  const placeholderBackend = async () => {
+    newMessages = [
+      ...messages,
+      {
+        text: "I am a placeholder",
+        type: "text",
+        sender: "system",
+      },
+    ];
+    setMessages(newMessages);
+  };
+
   useEffect(() => {
     if (needanswer === 1) {
-      queryBackend();
+      //queryBackend();
+      placeholderBackend();
       setNeedanswer(0);
       setCurrentQuestion("");
     }
@@ -134,9 +148,9 @@ const Convo = () => {
     }
   };
 
-  useEffect(() => {
-    loadConversation();
-  }, [id]);
+  // useEffect(() => {
+  //   loadConversation();
+  // }, [id]);
 
   const parseResponse = (text, sender) => {
     const parts = text.split(/(```[\s\S]*?```)/);
