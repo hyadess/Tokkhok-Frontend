@@ -1,0 +1,285 @@
+.whole-thing-container {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+
+.suggestion-list-title-container {
+    display: flex;
+    padding: 20px;
+
+}
+
+
+
+
+.suggestion-list-title {
+    font-size: x-large;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.377);
+   
+
+}
+
+
+
+
+.suggestion-see-all {
+    font-size: medium;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+
+    margin-left: 5px;
+    border-radius: 20px;
+
+    background-color: #b6b0b0fd;
+    font-weight: bold;
+    color: antiquewhite;
+    cursor: pointer;
+
+}
+
+.suggestion-see-all:hover {
+    background-color: rgba(0, 128, 0, 0.575);
+    color: white;
+}
+
+
+
+
+
+.suggestion-title-buttons {
+    display: flex;
+    margin-left: 490px;
+
+}
+
+
+
+.suggestion-title-button {
+    font-size: medium;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.144);
+    font-weight: bold;
+    color: rgba(77, 77, 77, 0.685);
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 20px;
+    width: fit-content;
+
+}
+
+.suggestion-title-button.selected {
+    border: none;
+    color: white;
+    background-color: rgba(0, 128, 0, 0.61);
+
+}
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------------------- */
+
+
+
+
+.suggestion-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.suggestion-container {
+    width: 23%;
+    border: 1px solid #0f0f0f2c;
+    margin: 3px;
+    margin-bottom: 15px;
+    border-radius: 30px;
+    transition: 0.3s ease-in-out;
+
+
+}
+
+.suggestion-container:hover {
+    border: 1px solid #0f0f0fcd;
+
+
+}
+
+
+/* -------------------------------------------------------------------------------------- */
+
+.suggestion-text-container {
+
+    padding: 10px;
+    padding-bottom: 30px;
+
+
+}
+
+
+
+.suggestion-name {
+    font-size: medium;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(67, 181, 164, 0.678);
+    color: whitesmoke;
+    border-radius: 20px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+}
+
+
+.suggestion-name.orange{
+    background-color: rgb(255, 123, 0);
+}
+.suggestion-name.red{
+    background-color: rgba(255, 0, 0, 0.753);
+}
+
+.suggestion-name.green{
+    background-color: rgba(55, 138, 55, 0.753);
+}
+
+
+.suggestion-horizontal-line {
+    min-height: 1px;
+    background-color: rgba(0, 0, 0, 0.11);
+    margin: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* -------------------------------------------------------------------------------------- */
+
+
+.suggestion-tag {
+    display: flex;
+    font-size: medium;
+    flex-wrap: wrap;
+    
+}
+
+
+.tag-icon {
+    padding-top: 5px;
+
+}
+
+.suggestion-tag-text {
+    font-size: small;
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(160, 172, 172, 0.493);
+    border-radius: 20px;
+    font-weight: bold;
+    color: rgb(130, 130, 130);
+    margin-left: 5px;
+
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------------- */
+
+.suggestion-lower-part {
+    display: flex;
+    margin: 10px;
+}
+
+
+.visition {
+    width: 60%;
+    font-size: small;
+}
+
+
+
+
+.visition-text {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
+    border: none;
+    background-color: chocolate;
+    color: whitesmoke;
+    max-width: fit-content;
+    font-weight: bold;
+    align-content: center;
+}
+
+.visition-text.visited {
+    background-color: grey;
+}
+
+
+.suggestion-buttons {
+    display: flex;
+    justify-content: right;
+
+}
+
+.suggestion-button {
+    font-size: medium;
+    border-radius: 20px;
+    padding: 6px;
+    padding-left: 9px;
+    padding-right: 9px;
+    color: green;
+    cursor: pointer;
+}
+
+.suggestion-button.imp {
+    color: gold;
+}
+
+.suggestion-button:hover {
+    background-color: rgb(43, 42, 42);
+    color: rgb(255, 208, 0);
+    /* transform: scale(1.2); */
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.end-horizontal-line {
+    height: 1px;
+    margin: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: rgba(0, 0, 0, 0.164);
+}

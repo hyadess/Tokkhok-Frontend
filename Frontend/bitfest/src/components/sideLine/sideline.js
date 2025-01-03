@@ -29,44 +29,46 @@ import "./../../css/Toast.css";
 //------------------------
 
 const ConvoLineList = ({ current }) => {
-  // const convos = [
-  //     {
-  //         "id": 1,
-  //         "name": "convo 1",
-  //         "description": "convo 1",
-  //     },
-  //     {
-  //         "id": 2,
-  //         "name": "convo 2",
-  //         "description": "convo 2",
-  //     },
-  //     {
-  //         "id": 3,
-  //         "name": "convo 3",
-  //         "description": "convo 3",
-  //     },
+  const convos = [
+      {
+          "id": 1,
+          "name": "convo 1",
+          "description": "convo 1",
+      },
+      {
+          "id": 2,
+          "name": "convo 2",
+          "description": "convo 2",
+      },
+      {
+          "id": 3,
+          "name": "convo 3",
+          "description": "convo 3",
+      },
 
-  // ];
+  ];
 
-  const [convos, setConvos] = useState([]);
-  const { userId } = useAuth();
+  //const [convos, setConvos] = useState([]);
+  // const { userId } = useAuth();
   //navigate
   const navigate = useNavigate();
 
-  const myConvos = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/conversation/${userId}/get_normal`
-      );
-      console.log(response);
-      setConvos(response.data);
-    } catch (error) {
-      console.error(
-        "Error fetching convos:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
+  // const myConvos = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8002/conversation/${userId}/get_normal`
+  //     );
+  //     console.log(response);
+  //     setConvos(response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       "Error fetching convos:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   }
+  // };
+
+
   const showToast = (type, text) => {
     toast(text, {
       type: { type }, // or 'success', 'error', 'warning', 'info'
@@ -82,28 +84,28 @@ const ConvoLineList = ({ current }) => {
     });
   };
 
-  const openConvo = (index) => {
-    //navigate to the convo
-    navigate(`/conversation/${index}`);
-  };
-  const deleteConvo = async (i) => {
-    console.log(`${i} th convo is deleted`);
-    const response = await axios.delete(
-      `http://127.0.0.1:8002/conversation/${i}/delete`
-    );
-    console.log(response.data);
-    // now we are getting the updated suggestion from the data, delete the suggestion where the id matches
+  // const openConvo = (index) => {
+  //   //navigate to the convo
+  //   navigate(`/conversation/${index}`);
+  // };
+  // const deleteConvo = async (i) => {
+  //   console.log(`${i} th convo is deleted`);
+  //   const response = await axios.delete(
+  //     `http://127.0.0.1:8002/conversation/${i}/delete`
+  //   );
+  //   console.log(response.data);
+  //   // now we are getting the updated suggestion from the data, delete the suggestion where the id matches
 
-    const updatedConvos = convos.filter((convo) => convo.id !== i);
-    setConvos(updatedConvos);
-    const message = response.data.message;
-    if (message === "Conversation deleted successfully") {
-      showToast("success", "conversation is deleted");
-    }
-  };
+  //   const updatedConvos = convos.filter((convo) => convo.id !== i);
+  //   setConvos(updatedConvos);
+  //   const message = response.data.message;
+  //   if (message === "Conversation deleted successfully") {
+  //     showToast("success", "conversation is deleted");
+  //   }
+  // };
 
   useEffect(() => {
-    myConvos();
+    // myConvos();
   }, []);
 
   return (
@@ -123,13 +125,13 @@ const ConvoLineList = ({ current }) => {
                 <div className="convo-list-button-container">
                   <div
                     className="convo-list-button"
-                    onClick={() => deleteConvo(convo.id)}
+                    // onClick={() => deleteConvo(convo.id)}
                   >
                     <FontAwesomeIcon icon={faFire} size="1x" />
                   </div>
                   <div
                     className="convo-list-button"
-                    onClick={() => openConvo(convo.id)}
+                    // onClick={() => openConvo(convo.id)}
                   >
                     <FontAwesomeIcon icon={faEdit} size="1x" />
                   </div>
