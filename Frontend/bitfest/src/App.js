@@ -12,9 +12,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Convo from "./pages/chatbot";
 import AuthProvider, { useAuth } from "./context/AuthContext";
-import Profile from "./pages/profile";
 import LandingPage from "./pages/LandingPage";
-import Navbar from "./components/Navbar";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { token } = useAuth();
@@ -43,7 +41,7 @@ function AppContent() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/conversation/:id" element={<Convo />} />
         {/* <Route path="/allconvo" element={<AllConvo />} /> */}
-        <Route path="/profile/:id" element={<Profile />} />
+        {/* <Route path="/profile/:id" element={<Profile />} /> */}
       </Routes>
   );
 }

@@ -65,39 +65,39 @@ const Convo = () => {
 
   // backend query...............................................................................................
 
-  const queryBackend = async () => {
-    try {
-      const response = await axios.post(`http://127.0.0.1:8002/test/query`, {
-        conversation_id: id,
-        question: currentQuestion,
-        prompt: "answer the query",
-      });
-      //console.log(response.data);
-      let newMessages = messages;
-      response.data.messages.forEach((i) => {
-        newMessages = [
-          ...newMessages,
-          {
-            text: i.message,
-            type: i.message_type,
-            sender: "system",
-          },
-        ];
-      });
-      setMessages(newMessages);
+  // const queryBackend = async () => {
+  //   try {
+  //     const response = await axios.post(`http://127.0.0.1:8002/test/query`, {
+  //       conversation_id: id,
+  //       question: currentQuestion,
+  //       prompt: "answer the query",
+  //     });
+  //     //console.log(response.data);
+  //     let newMessages = messages;
+  //     response.data.messages.forEach((i) => {
+  //       newMessages = [
+  //         ...newMessages,
+  //         {
+  //           text: i.message,
+  //           type: i.message_type,
+  //           sender: "system",
+  //         },
+  //       ];
+  //     });
+  //     setMessages(newMessages);
 
-      console.log(messages);
-    } catch (error) {
-      console.error(
-        "Error querying backend:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
+  //     console.log(messages);
+  //   } catch (error) {
+  //     console.error(
+  //       "Error querying backend:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   }
+  // };
 
 
   const placeholderBackend = async () => {
-    newMessages = [
+    let newMessages = [
       ...messages,
       {
         text: "I am a placeholder",
@@ -179,9 +179,9 @@ const Convo = () => {
           <button className='menu-button add-button' onClick={() => setIsTutor(true)}><FontAwesomeIcon icon={faSquarePlus} size='2x' /></button>
         </div> */}
 
-        <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
+        {/* <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
           <ConvoLineList current={id} />
-        </div>
+        </div> */}
 
         <div className="new-convo last">
           {/* <h3 className={`new-convo-text ${isLeftContracted ? 'contracted' : ''}`}>Back-to home</h3> */}
