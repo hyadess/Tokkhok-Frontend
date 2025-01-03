@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PdfList from "../components/cardLists/PdfList"; // Import PdfList component
 import "../css/Profile.css";
-
+import NotesList from "./Notes/NotesList";
 const Profile = () => {
   const [selectedMenu, setSelectedMenu] = useState("myPdfs");
   const [data, setData] = useState([]);
@@ -48,11 +48,26 @@ const Profile = () => {
 
       {/* Middle Pane */}
       <div className="middle">
-        <PdfList
-          title={menuTitles[selectedMenu]}
-          pdfs={data}
-          isAll={selectedMenu === "myPdfs"} // Adjust as needed
-        />
+        {/* if selected menu is myPdfs or AllowedPublicPdfs, render PdfList component */}
+        {selectedMenu === "myPdfs" || selectedMenu === "AllowedPublicPdfs" ? (
+          <PdfList data={data} />
+        ) : (
+          <div>
+            <h1>{menuTitles[selectedMenu]}</h1>
+            <ul>
+              {data.map((item) => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {/* if selected menu is myEditors or sharedEditors, render NotesList component */}
+        {selectedMenu === "myEditors" || selectedMenu === "sharedEditors" ? (
+          <NotesList />
+        ) : null}
+
+
+
       </div>
     </div>
   );
