@@ -8,6 +8,7 @@ const LandingPage = ()=>{
 
     return(
         <div>           
+
             <div className="w-[100%] md:h-[75vh] bg-[#cadcf8]">
                 <div className="w-[100%] grid grid-cols-1 md:grid-cols-[55%_45%] h-[100%] ">
 

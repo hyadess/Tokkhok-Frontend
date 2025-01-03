@@ -1,15 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
-
+import React, { useState, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 import "../css/Translator2.css";
 
 const Translator = () => {
   const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isRecording, setIsRecording] = useState(false);
+  const [audioBlobUrl, setAudioBlobUrl] = useState(null); // To store WebM Blob URL
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-
   const messageListRef = useRef(null);
+  const userId = useAuth();
 
   const handleTranslate = () => {
     if (userMessage.trim() !== "") {
@@ -36,7 +37,7 @@ const Translator = () => {
       navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then((stream) => {
-          const mediaRecorder = new MediaRecorder(stream);
+          const mediaRecorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
           mediaRecorderRef.current = mediaRecorder;
           audioChunksRef.current = [];
 
@@ -46,15 +47,19 @@ const Translator = () => {
             }
           };
 
-          mediaRecorder.onstop = () => {
+          mediaRecorder.onstop = async () => {
             const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
             const blobUrl = URL.createObjectURL(audioBlob); // Create Blob URL for local use
-            console.log("Audio Blob URL:", blobUrl);
+            setAudioBlobUrl(blobUrl); // Save WebM Blob URL for download
+
             // Add audio message to chat history
             setChatHistory((prevHistory) => [
               ...prevHistory,
               { text: blobUrl, sender: "user", isAudio: true },
             ]);
+
+            // Send the WebM blob to the backend
+            sendAudioToBackend(audioBlob);
           };
 
           mediaRecorder.start();
@@ -67,6 +72,28 @@ const Translator = () => {
       // Stop recording
       mediaRecorderRef.current.stop();
       setIsRecording(false);
+    }
+  };
+
+  const sendAudioToBackend = async (audioBlob) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", audioBlob, "recording.webm");
+      formData.append("user_id", userId);
+
+      const response = await fetch("https://buet-genesis.onrender.com/api/v1/audio_chat", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("File uploaded successfully:", result);
+      } else {
+        console.error("Failed to upload audio file.");
+      }
+    } catch (error) {
+      console.error("Error uploading audio file:", error);
     }
   };
 
@@ -115,6 +142,11 @@ const Translator = () => {
           <button className="translator-microphone-button" onClick={handleAudioRecord}>
             {isRecording ? "🎤 Recording..." : "🎤"}
           </button>
+          {audioBlobUrl && (
+            <a href={audioBlobUrl} download="recording.webm" className="translator-download-button">
+              Download WebM
+            </a>
+          )}
         </div>
       </div>
     </div>
