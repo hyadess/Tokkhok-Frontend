@@ -72,21 +72,21 @@ const Translator = () => {
 
   return (
     <div className="translator-container">
-      <div className="sidebar">
-        <h3 className="sidebar-title">Chat History</h3>
+      <div className="translator-sidebar">
+        <h3 className="translator-sidebar-title">Chat History</h3>
         <input
           type="text"
-          className="search-bar"
+          className="translator-search-bar"
           placeholder="Search chats..."
         />
-        <div className="chat-list">
-          <div className="chat-item">Amar Chat</div>
-          <div className="chat-item">Tomar Chat</div>
-          <div className="chat-item">Chat 3</div>
+        <div className="translator-chat-list">
+          <div className="translator-chat-item">Amar Chat</div>
+          <div className="translator-chat-item">Tomar Chat</div>
+          <div className="translator-chat-item">Chat 3</div>
         </div>
       </div>
-      <div className="chat-section">
-        <div className="chat-window" ref={messageListRef}>
+      <div className="translator-chat-section">
+        <div className="translator-chat-window" ref={messageListRef}>
           {chatHistory.map((msg, index) => (
             <div
               key={index}
@@ -102,17 +102,17 @@ const Translator = () => {
             </div>
           ))}
         </div>
-        <div className="input-section">
+        <div className="translator-input-section">
           <textarea
-            className="chat-input"
+            className="translator-chat-input"
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
             placeholder="Type a message in English..."
           ></textarea>
-          <button className="translate-button" onClick={handleTranslate}>
+          <button className="translator-translate-button" onClick={handleTranslate}>
             ➤
           </button>
-          <button className="microphone-button" onClick={handleAudioRecord}>
+          <button className="translator-microphone-button" onClick={handleAudioRecord}>
             {isRecording ? "🎤 Recording..." : "🎤"}
           </button>
         </div>

@@ -69,16 +69,16 @@ const Translator = () => {
 
   return (
     <div className="translator-container">
-      <div className="sidebar">
-        <h3 className="sidebar-title">Chat History</h3>
+      <div className="translator-sidebar">
+        <h3 className="translator-sidebar-title">Chat History</h3>
         <input
           type="text"
-          className="search-bar"
+          className="translator-search-bar"
           placeholder="Search chats..."
           value={searchQuery}
           onChange={handleSearch}
         />
-        <div className="chat-list">
+        <div className="translator-chat-list">
           {filteredChats.map((chat) => (
             <div
               key={chat.id}
@@ -92,8 +92,8 @@ const Translator = () => {
           ))}
         </div>
       </div>
-      <div className="chat-section">
-        <div className="chat-window" ref={messageListRef}>
+      <div className="translator-chat-section">
+        <div className="translator-chat-window" ref={messageListRef}>
           {chatHistory.map((msg, index) => (
             <div
               key={index}
@@ -105,17 +105,17 @@ const Translator = () => {
             </div>
           ))}
         </div>
-        <div className="input-section">
+        <div className="translator-input-section">
           <textarea
-            className="chat-input"
+            className="translator-chat-input"
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
             placeholder="Type a message in English..."
           ></textarea>
-          <button className="translate-button" onClick={handleTranslate}>
+          <button className="translator-translate-button" onClick={handleTranslate}>
             ➤
           </button>
-          <button className="generate-pdf-button" onClick={handleGeneratePDF}>
+          <button className="translator-generate-pdf-button" onClick={handleGeneratePDF}>
             PDF
           </button>
         </div>
