@@ -41,70 +41,62 @@ const CreateConvo = (props) => {
         chat_name: sessionName,
       };
 
-      try {
-        const response = await axios.put(url, data, {
-          headers: {
-            "Content-Type": "application/json", // Set appropriate headers
-            Authorization: `Bearer ${token}`, // Pass the bearer token here
-          },
-        });
+      const response = await axios.post(url, data, {
+        headers: {
+          "Content-Type": "application/json", // Set appropriate headers
+          Authorization: `Bearer ${token}`, // Pass the bearer token here
+        },
+      });
 
-        props.toggleOverlay();
-        setSessionName("");
-        console.log(response);
-        navigate(`/conversation/${response.data.id}`);
-      } catch (error) {
-        console.error(
-          "Error creating conversation:",
-          error.response ? error.response.data : error.message
-        );
-      }
+      props.toggleOverlay();
+      setSessionName("");
+      console.log(response);
+      navigate(`/conversation/${response.data.id}`);
     } catch (error) {
       console.error(
         "Error creating conversation:",
         error.response ? error.response.data : error.message
       );
     }
+  };
 
-    return (
-      <div
-        className={`overlay ${props.isOverlayVisible ? "visible" : ""}`}
-        id="overlay"
-      >
-        <div className="overlay-content">
-          <div className="overlay-cross-button-container">
-            <div
-              className="overlay-cross-button"
-              onClick={() => props.toggleOverlay()}
-            >
-              <FontAwesomeIcon icon={faClose} size="1x" />
-            </div>
+  return (
+    <div
+      className={`overlay ${props.isOverlayVisible ? "visible" : ""}`}
+      id="overlay"
+    >
+      <div className="overlay-content">
+        <div className="overlay-cross-button-container">
+          <div
+            className="overlay-cross-button"
+            onClick={() => props.toggleOverlay()}
+          >
+            <FontAwesomeIcon icon={faClose} size="1x" />
           </div>
+        </div>
 
-          {/* <div className='session-text'>ENTER SESSION NAME</div> */}
+        {/* <div className='session-text'>ENTER SESSION NAME</div> */}
 
-          <div className="flex-div">
-            <div>
-              <textarea
-                type="text"
-                className="input-field"
-                placeholder="Name your chatbot..."
-                value={sessionName}
-                onChange={(e) => setSessionName(e.target.value)}
-              />
-            </div>
-            <button
-              className="name-submit-buttond"
-              onClick={() => convoCreateRequest()}
-            >
-              <FontAwesomeIcon icon={faPaperPlane} size="xs" />
-            </button>
+        <div className="flex-div">
+          <div>
+            <textarea
+              type="text"
+              className="input-field"
+              placeholder="Name your chatbot..."
+              value={sessionName}
+              onChange={(e) => setSessionName(e.target.value)}
+            />
           </div>
-
+          <button
+            className="name-submit-buttond"
+            onClick={() => convoCreateRequest()}
+          >
+            <FontAwesomeIcon icon={faPaperPlane} size="xs" />
+          </button>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
 };
 
 export default CreateConvo;
