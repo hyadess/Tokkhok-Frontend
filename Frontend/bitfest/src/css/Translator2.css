@@ -129,3 +129,17 @@
     background-color: #6a76f7;
   }
   
+  .search-bar {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1e1e2f;
+    color: #b91616;
+    font-size: 14px;
+    outline: none;
+  }
+  .search-bar::placeholder {
+    color: #646482;
+  }
+  

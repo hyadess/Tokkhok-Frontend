@@ -14,7 +14,7 @@ import Convo from "./pages/chatbot";
 // import Arnab from "./pages/Arnab";
 import AuthProvider, { useAuth } from "./context/AuthContext";
 import LandingPage from "./pages/LandingPage";
-import Translator from "./components/Translator";
+import Translator from "./components/Translator2";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { token } = useAuth();
   return (

@@ -1,18 +1,26 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../css/Translator2.css";
+import "../css/Translator.css";
 
 const Translator = () => {
   const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const messageListRef = useRef(null);
 
-  // Hardcoded chat histories
-  const hardcodedHistories = [
-    { id: 1, title: "Chat 1", messages: [{ text: "Hello!", sender: "user" }] },
-    { id: 2, title: "Chat 2", messages: [{ text: "How are you?", sender: "user" }] },
-    { id: 3, title: "Chat 3", messages: [{ text: "Translate this!", sender: "user" }] },
+  // Hardcoded chat titles without messages
+  const hardcodedChats = [
+    { id: 1, title: "Amar Chat" },
+    { id: 2, title: "Tomar Chat" },
+    { id: 3, title: "Chat 3" },
   ];
+
+  const hardcodedMessages = {
+    1: [{ text: "Hello!", sender: "user" }, { text: "Hi there!", sender: "bot" }],
+    2: [{ text: "How are you?", sender: "user" }, { text: "I'm fine, thanks!", sender: "bot" }],
+    3: [{ text: "Translate this!", sender: "user" }, { text: "Translation done!", sender: "bot" }],
+  };
 
   useEffect(() => {
     if (messageListRef.current) {
@@ -41,15 +49,36 @@ const Translator = () => {
 
   const handleSelectChat = (chat) => {
     setSelectedChat(chat.id);
-    setChatHistory(chat.messages);
+    setChatHistory(hardcodedMessages[chat.id]);
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredChats = hardcodedChats.filter((chat) =>
+    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleGeneratePDF = () => {
+    const hardcodedPdfLink =
+      "https://drive.google.com/file/d/1_tYyacHrrXb17U4qEVrqICJHGvVFq8l1/view?usp=drive_link";
+    window.open(hardcodedPdfLink, "_blank");
   };
 
   return (
     <div className="translator-container">
       <div className="sidebar">
         <h3 className="sidebar-title">Chat History</h3>
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search chats..."
+          value={searchQuery}
+          onChange={handleSearch}
+        />
         <div className="chat-list">
-          {hardcodedHistories.map((chat) => (
+          {filteredChats.map((chat) => (
             <div
               key={chat.id}
               className={`chat-item ${
@@ -84,6 +113,9 @@ const Translator = () => {
           ></textarea>
           <button className="translate-button" onClick={handleTranslate}>
             ➤
+          </button>
+          <button className="generate-pdf-button" onClick={handleGeneratePDF}>
+            PDF
           </button>
         </div>
       </div>
