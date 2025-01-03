@@ -2,7 +2,7 @@ import { React, useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import home_image from "../resources/images/code-tutor.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,13 +13,11 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import ToolList from "../components/ToolList";
-import SuggestionList from "../components/lists/SuggestionList";
-import QuizList from "../components/lists/QuizList";
-import LectureList from "../components/lists/LectureList";
-import ConvoList from "../components/lists/ConvoList";
-import CreateConvo from "../components/overlays/CreateConvo";
-import GetSuggestion from "../components/overlays/GetSuggestion";
+
+
+// import ToolList from "../components/ToolList";
+// import ConvoList from "../components/lists/ConvoList";
+
 
 const Home = () => {
   const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -28,89 +26,43 @@ const Home = () => {
   };
 
   /// get my suggestions
-  const { userId } = useAuth();
+  // const { userId } = useAuth();
   const navigate = useNavigate();
 
   //get suggestions as soon as the page loads
 
-  const [suggestions, setSuggestions] = useState([]);
-  const [lectures, setLectures] = useState([]);
-  const [quizes, setQuizes] = useState([]);
   const [convos, setConvos] = useState([]);
-  const mySuggestions = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/suggestion/${userId}/get_all`
-      );
-      console.log(response);
-      setSuggestions(response.data);
-    } catch (error) {
-      console.error(
-        "Error fetching suggestions:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
-  const myLectures = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/lecture/${userId}/get_all`
-      );
-      console.log(response);
-      setLectures(response.data);
-    } catch (error) {
-      console.error(
-        "Error fetching lectures:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
-  const myQuizes = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/quiz/${userId}/get_all`
-      );
-      console.log(response);
-      setQuizes(response.data);
-    } catch (error) {
-      console.error(
-        "Error fetching lectures:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
 
-  const myConvos = async () => {
-    try {
-      const response = await axios.get(
-        `http://127.0.0.1:8002/conversation/${userId}/get_normal`
-      );
-      console.log(response);
-      setConvos(response.data);
-    } catch (error) {
-      console.error(
-        "Error fetching convos:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
+  // const myConvos = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://127.0.0.1:8002/conversation/${userId}/get_normal`
+  //     );
+  //     console.log(response);
+  //     setConvos(response.data);
+  //   } catch (error) {
+  //     console.error(
+  //       "Error fetching convos:",
+  //       error.response ? error.response.data : error.message
+  //     );
+  //   }
+  // };
 
-  useEffect(() => {
-    if (!userId) {
-      navigate("/");
-    }
-  }, []);
 
-  useEffect(() => {
-    mySuggestions();
-    myLectures();
-    myQuizes();
-    myConvos();
-  }, []);
+
+  // useEffect(() => {
+  //   if (!userId) {
+  //     navigate("/");
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   myConvos();
+  // }, []);
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="home-center">
         {/* <div className='home-starter'>
                     <div className='home-starter-text'>
@@ -127,17 +79,11 @@ const Home = () => {
 
                 </div> */}
 
-        <ToolList />
-        <SuggestionList isAll={false} suggestions={suggestions} />
-        <LectureList isAll={false} lectures={lectures} />
-        <QuizList isAll={false} quizes={quizes} />
-        <ConvoList isAll={false} convos={convos} />
+        {/* <ToolList />
+        <ConvoList isAll={false} convos={convos} /> */}
 
         {/* <CreateConvo isOverlayVisible={isOverlayVisible} toggleOverlay={toggleOverlay} /> */}
-        <GetSuggestion
-          isOverlayVisible={isOverlayVisible}
-          toggleOverlay={toggleOverlay}
-        />
+
       </div>
     </div>
   );
