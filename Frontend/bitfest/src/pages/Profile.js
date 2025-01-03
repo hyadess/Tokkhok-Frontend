@@ -1,135 +1,58 @@
-// src/components/Dashboard.js
-import { React, useState, useRef, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaperPlane,
-  faBars,
-  faPlus,
-  faSquarePlus,
-  faHouse,
-  faEye,
-  
-} from "@fortawesome/free-solid-svg-icons";
-import "../css/Convo.css";
+// src/components/Profile.js
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ConvoLineList from "../components/sideLine/sideline";
+import PdfList from "../components/cardLists/PdfList"; // Import PdfList component
+import "../css/Profile.css";
+
 const Profile = () => {
-  // const { logout } = useAuth();
-  // const { id } = useParams();
-  const navigate = useNavigate();
+  const [selectedMenu, setSelectedMenu] = useState("myPdfs");
+  const [data, setData] = useState([]);
 
-  // const handleLogout = () => {
-  //   logout();
-  //   navigate("/login");
-  // };
+  // Menu titles for PdfList
+  const menuTitles = {
+    myPdfs: "My PDFs",
+    AllowedPublicPdfs: "Allowed Public PDFs",
+    myEditors: "My Editors",
+    sharedEditors: "Shared Editors",
+  };
 
-
-  // user asks question...............................................................................................
-
-  const [myPdfs, setMyPdfs] = useState([]);
-  const [AllowedPublicPdfs, setAllowedPublicPdfs] = useState([]);
-  const [myEditors, setMyEditors] = useState([]);
-  const [sharedEditors, setSharedEditors] = useState([]);
-  const [totalTranslations, setTotalTranslations] = useState([]);
-  
-
-
-
+  // Fetch data from backend based on the selected menu
   useEffect(() => {
-    if (needanswer === 1) {
-      //queryBackend();
-      placeholderBackend();
-      setNeedanswer(0);
-      setCurrentQuestion("");
-    }
-  }, [messages]);
-
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/api/${selectedMenu}`); // Replace with your API endpoint
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [selectedMenu]);
 
   return (
     <div className="container-diff">
-      <div className={`left ${isLeftContracted ? "contracted" : ""}`}>
-        <div>
-          <button className="menu-button" onClick={handleLeftToggle}>
-            <FontAwesomeIcon icon={faBars} size="2x" />
-          </button>
-        </div>
-        {/* <div className='new-convo'>
-          <h3 className={`new-convo-text ${isLeftContracted ? 'contracted' : ''}`}>New Conversation</h3>
-          <button className='menu-button add-button' onClick={() => setIsTutor(true)}><FontAwesomeIcon icon={faSquarePlus} size='2x' /></button>
-        </div> */}
-
-        <div className={`${isLeftContracted ? "convo-list-contracted" : ""}`}>
-          <ConvoLineList current={1} />
-        </div>
-
-        <div className="new-convo last">
-          {/* <h3 className={`new-convo-text ${isLeftContracted ? 'contracted' : ''}`}>Back-to home</h3> */}
-          <button
-            className="menu-button home-button"
-            onClick={() => navigate("/home")}
-          >
-            <FontAwesomeIcon icon={faHouse} style={{ fontSize: "26px" }} />
-          </button>
-        </div>
-
-        {/* <CreateConvo
-          isOverlayVisible={isTutor}
-          toggleOverlay={() => setIsTutor(false)}
-        /> */}
+      {/* Sidebar */}
+      <div className="left">
+        <ul className="menu-list">
+          {Object.keys(menuTitles).map((menu) => (
+            <li
+              key={menu}
+              className={selectedMenu === menu ? "active" : ""}
+              onClick={() => setSelectedMenu(menu)}
+            >
+              {menuTitles[menu]}
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <div className={`middle ${isLeftContracted ? "contracted" : ""}`}>
-        <div
-          className={`chat-container ${isLeftContracted ? "contracted" : ""}`}
-          ref={messageListRef}
-        >
-          {messages.map((message, index) =>
-            message.type === "text" ? (
-              <div className={`chat-message ${message.sender}`}>
-                {parseResponse(message.text, message.sender)}
-                {/* add the pdfs as a series of tablets */}
-                {message.pdfs ? (
-                  <div className="pdfs-tablets">
-                    {message.pdfs.map((pdf) => (
-                      <div className="pdf-tablet">
-                        <a href={pdf.url} target="_blank" rel="noreferrer">
-                          {pdf.title}
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ) : (
-              <img
-                src={message.text}
-                alt="image"
-                className={`chat-message ${message.sender}`}
-              />
-            )
-          )}
-        </div>
-        <div
-          className={`input-container ${isLeftContracted ? "contracted" : ""}`}
-        >
-          <button className ="pdf-show" onClick={handleGeneratePDF}>
-          <FontAwesomeIcon icon={faEye} size="2x"/>
-          </button>
-          <textarea
-            type="text"
-            className="chat-input"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type your message..."
-          />
-
-          <button className="send-button" onClick={sendMessage}>
-            <FontAwesomeIcon icon={faPaperPlane} size="2x" />
-          </button>
-        </div>
+      {/* Middle Pane */}
+      <div className="middle">
+        <PdfList
+          title={menuTitles[selectedMenu]}
+          pdfs={data}
+          isAll={selectedMenu === "myPdfs"} // Adjust as needed
+        />
       </div>
     </div>
   );
