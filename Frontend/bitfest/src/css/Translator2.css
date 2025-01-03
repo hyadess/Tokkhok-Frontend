@@ -11,7 +11,7 @@
   /* Sidebar */
   .sidebar {
     width: 20%;
-    background-color: #25253a;
+    background-color: #101025;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -135,7 +135,7 @@
     border: none;
     border-radius: 8px;
     background-color: #1e1e2f;
-    color: #b91616;
+    color: #ffffff;
     font-size: 14px;
     outline: none;
   }
