@@ -44,7 +44,7 @@ const CreateConvo = (props) => {
       const response = await axios.post(url, data, {
         headers: {
           "Content-Type": "application/json", // Set appropriate headers
-          Authorization: `Bearer ${token}`, // Pass the bearer token here
+          "Authorization": `Bearer ${token}`, // Pass the bearer token here
         },
       });
 

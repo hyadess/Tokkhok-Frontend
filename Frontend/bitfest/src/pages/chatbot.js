@@ -81,16 +81,36 @@ const Convo = () => {
         }
       );
       //console.log(response.data);
-      let newMessages = messages;
+      let newMessages = [];
       response.data.messages.forEach((i) => {
-        newMessages = [
-          ...newMessages,
-          {
-            text: i.message,
-            type: i.message_type,
-            sender: "system",
-          },
-        ];
+        //if i.knowledge is not an empty array, then array of pdfs
+        if (i.knowledge.length > 0) {
+          let pdfs = [];
+          i.knowledge.forEach((j) => {
+            pdfs.push({
+              title: j.file_title,
+              url: j.file_url,
+            });
+          });
+          newMessages = [
+            ...newMessages,
+            {
+              text: i.content,
+              type: "text",
+              sender: i.sender,
+              pdfs: pdfs,
+            },
+          ];
+        } else {
+          newMessages = [
+            ...newMessages,
+            {
+              text: i.content,
+              type: "text",
+              sender: i.sender,
+            },
+          ];
+        }
       });
       setMessages(newMessages);
 
@@ -151,7 +171,7 @@ const Convo = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
           },
         }
       );
