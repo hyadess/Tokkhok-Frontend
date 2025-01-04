@@ -17,11 +17,14 @@ const Translator = () => {
 
   const speakBangla = (text) => {
     if (window.responsiveVoice) {
+      console.log("Text to speak:", text);
       window.responsiveVoice.speak(text, "Bangla Bangladesh Female");
     } else {
       console.error("TTS library is not loaded. Ensure the script is added in index.html.");
     }
   };
+  
+
   
 
   useEffect(() => {
@@ -48,6 +51,8 @@ const Translator = () => {
 
     fetchChatHistory();
   }, [userId]);
+
+  
 
   const handleAudioRecord = () => {
     if (!isRecording) {
@@ -103,6 +108,7 @@ const Translator = () => {
         console.log("Backend response:", result); // Log full response for debugging
 
         const transcription = result;
+
         const botResponse = { text: transcription, sender: "bot" };
 
         // Trigger TTS for Bangla text
@@ -158,7 +164,8 @@ const Translator = () => {
             onChange={(e) => setUserMessage(e.target.value)}
             placeholder="Type a message in English..."
           ></textarea>
-          <button className="translator-translate-button" onClick={() => {}}>
+          <button className="translator-translate-button" onClick={() => {
+          }}>
             ➤
           </button>
           <button className="translator-microphone-button" onClick={handleAudioRecord}>
