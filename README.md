@@ -1,3 +1,19 @@
+
+[visit here](https://buet-genesis.onrender.com/docs) For API Documentations
+
+# Running the Frontend
+
+follow the following commands. 
+
+```bash
+npm i
+```
+
+```bash
+npm start
+```
+
+
 # Running the Backend
 ## FastAPI Backend
 ## Virtual environment
