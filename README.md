@@ -135,7 +135,7 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - we fed knowledge and query to AI-agent. It responded in text
 - with browsers SpeechSynthesis api, we can convert the textual response to speech
 - After returning the audio response, we did the db-storing activities using FastAPI's background task
-
+![audio-chat](audio.png)
 ## Latency Handling at the time of translating Banglish to bangla
 - we have used FastAPI's Background task to execute db-operations in a separate thread. When the thread updates the db-operation, we terminate it
 - we return the translation as soon as we get
