@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
@@ -19,7 +19,7 @@ import ConvoLineList from "../components/sideLine/sideline";
 import UserTrain from "../components/overlays/UserTrain";
 
 import ToolList from "../components/ToolList";
-// import ConvoList from "../components/lists/ConvoList";
+import ConvoList from "../components/cardLists/ConvoList";
 
 const Home = () => {
   const [publicPdfs, setPublicPdfs] = useState([]);
@@ -31,11 +31,8 @@ const Home = () => {
     setOverlayVisible(!isOverlayVisible);
   };
 
-  /// get my suggestions
   const { userId, token } = useAuth();
   const navigate = useNavigate();
-
-  //get suggestions as soon as the page loads
 
   const [convos, setConvos] = useState([]);
 
@@ -52,6 +49,7 @@ const Home = () => {
       );
       console.log("pdf_files", response);
       setPublicPdfs(response.data);
+      setFilteredPdfs(response.data); // Initialize filtered PDFs
     } catch (error) {
       console.error(
         "Error fetching public pdfs:",
@@ -62,26 +60,16 @@ const Home = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    let pdfs = publicPdfs.filter((pdf) =>
-      pdf.title.toLowerCase().includes(e.target.value.toLowerCase())
-    );
+    const query = e.target.value.toLowerCase();
+
+    // Use Unicode-aware filtering for both Bangla and English
+    const pdfs = publicPdfs.filter((pdf) => {
+      const title = pdf.file_title ? pdf.file_title.toLowerCase() : "";
+      return title.includes(query);
+    });
+
     setFilteredPdfs(pdfs);
   };
-
-  // const myConvos = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://127.0.0.1:8002/conversation/${userId}/get_normal`
-  //     );
-  //     console.log(response);
-  //     setConvos(response.data);
-  //   } catch (error) {
-  //     console.error(
-  //       "Error fetching convos:",
-  //       error.response ? error.response.data : error.message
-  //     );
-  //   }
-  // };
 
   useEffect(() => {
     if (!userId) {
@@ -91,47 +79,28 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
-    //myConvos();
-  }, []);
-
   return (
     <div>
       <div className="home-center">
-        {/* <div className='home-starter'>
-                    <div className='home-starter-text'>
-                        <div className='heading'> WELCOME TO CODE TUTOR </div>
-                        <div className='subheading'> LEARN WITH US </div>
-                        <div onClick={toggleOverlay}>
-                            <button className='home-starter-button' > ASK TUTOR <FontAwesomeIcon icon={faPlus} size='1.4x' /></button>
-                        </div>
-                    </div>
-                    <div className='home-starter-image'>
-                        <img src={home_image} alt='home-image' />
-                    </div>
-
-
-                </div> */}
-
         <ToolList />
-        {/* implement the searchbar */}
+        {/* Search Bar */}
         <div className="flex justify-center">
-          {/* <FontAwesomeIcon icon={faSearch} size="0.4x" /> */}
           <div className="pdf-search">
             <input
               type="text"
               className="pdf-search-bar"
-              placeholder="Search pdfs..."
+              placeholder="Search PDFs (Bangla)..."
               value={searchQuery}
               onChange={handleSearch}
             />
           </div>
         </div>
 
+        {/* Filtered PDF List */}
         <div className="pdf-list">
           {filteredPdfs.map((pdf) => (
             <div key={pdf.id} className="pdf-item">
-              <div className="pdf-item-title">{pdf.file_title}</div>
+              <div className="pdf-item-title">{pdf.title}</div>
               <div className="pdf-item-link">
                 <a href={pdf.file_url} target="_blank" rel="noreferrer">
                   View PDF
@@ -140,10 +109,8 @@ const Home = () => {
             </div>
           ))}
         </div>
-
-        {/* <ConvoList isAll={false} convos={convos} /> */}
-
-        {/* <CreateConvo isOverlayVisible={isOverlayVisible} toggleOverlay={toggleOverlay} /> */}
+        <div className="tool-list-title">PREVIOUS CONVERSATIONS</div>
+        <ConvoList />
       </div>
     </div>
   );
