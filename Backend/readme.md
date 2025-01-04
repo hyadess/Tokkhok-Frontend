@@ -56,6 +56,7 @@ execute the following command
 - using postgresql for database
 - Hosted the database in supabase
 - using sqlalchemy as ORM
+- Using Database pooling. Using default pool size = 15
 
 ## Database Migration Tool
 Using Alembic as DB-migration tool
@@ -92,11 +93,20 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - AI agent then generates Bengali response using our custom knowledge base
 
 ## Translation Generation:
+
+### For translation, we have tried 2 ways:
+#### Way-1:
 - We have used Few-shot prompting that is used as a technique to enable in-context learning
 - Our users contribute in geenrating learning samples ({banglish, bangla} pairs)
 - admins approve some of them
 - The approved pairs are used as few shot inferencing
 - Future plan is to run a cron job (after 1 week) to collect the approved samples and use them to train model using openai's fine-tune api. Currently it could not be done due to costing reasons
+
+#### way-2:
+- used Google Transliterate API
+- The transliteration is phonetic, meaning it maps input sounds in one script (e.g., Latin/English) to equivalent sounds in the target script (e.g., Bengali).
+- This engine primarily relies on rule-based linguistic mappings and possibly some statistical or probabilistic enhancements for ambiguity resolution.
+- we chose this option for better latency support
 
 ## Audio chat Pipeline
 - we used OpenAI's whisper-1 model for generating transcript for user speech
@@ -105,6 +115,10 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - we fed knowledge and query to AI-agent. It responded in text
 - with browsers SpeechSynthesis api, we can convert the textual response to speech
 - After returning the audio response, we did the db-storing activities using FastAPI's background task
+
+## Latency Handling at the time of translating Banglish to bangla
+- we have used FastAPI's Background task to execute db-operations in a separate thread. When the thread updates the db-operation, we terminate it
+- we return the translation as soon as we get
   
 
 ## deployment
