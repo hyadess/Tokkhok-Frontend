@@ -1,107 +1,154 @@
-import React, { useState, useRef, useEffect } from "react";
-
+import React, { useState, useEffect, useRef } from "react";
+import { useAuth } from "../context/AuthContext";
 import "../css/Translator2.css";
 
 const Translator = () => {
   const [userMessage, setUserMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioBlobUrl, setAudioBlobUrl] = useState(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
   const messageListRef = useRef(null);
+  const { userId } = useAuth();
 
-  // Hardcoded chat titles without messages
-  const hardcodedChats = [
-    { id: 1, title: "Amar Chat" },
-    { id: 2, title: "Tomar Chat" },
-    { id: 3, title: "Chat 3" },
-  ];
+  // Fetch chat history on component mount
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      try {
+        const response = await fetch(
+          `https://buet-genesis.onrender.com/api/v1/audio_chat/user/${userId}`
+        );
 
-  const hardcodedMessages = {
-    1: [{ text: "Hello!", sender: "user" }, { text: "Hi there!", sender: "bot" }],
-    2: [{ text: "How are you?", sender: "user" }, { text: "I'm fine, thanks!", sender: "bot" }],
-    3: [{ text: "Translate this!", sender: "user" }, { text: "Translation done!", sender: "bot" }],
+        if (response.ok) {
+          const data = await response.json();
+          const formattedHistory = data.map((item) => ({
+            text: item.response,
+            sender: "bot",
+          }));
+          setChatHistory(formattedHistory);
+        } else {
+          console.error("Failed to fetch chat history.");
+        }
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    };
+
+    fetchChatHistory();
+  }, [userId]);
+
+  const handleAudioRecord = () => {
+    if (!isRecording) {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          const mediaRecorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
+          mediaRecorderRef.current = mediaRecorder;
+          audioChunksRef.current = [];
+
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+              audioChunksRef.current.push(event.data);
+            }
+          };
+
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+            const blobUrl = URL.createObjectURL(audioBlob);
+            setAudioBlobUrl(blobUrl);
+
+            const newUserMessage = { text: blobUrl, sender: "user", isAudio: true };
+            setChatHistory((prevHistory) => [...prevHistory, newUserMessage]);
+
+            sendAudioToBackend(audioBlob);
+          };
+
+          mediaRecorder.start();
+          setIsRecording(true);
+        })
+        .catch((error) => {
+          console.error("Error accessing microphone:", error);
+        });
+    } else {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
   };
 
-  useEffect(() => {
+  const sendAudioToBackend = async (audioBlob) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", audioBlob, "recording.webm");
+      formData.append("user_id", userId);
+
+      const response = await fetch("https://buet-genesis.onrender.com/api/v1/audio_chat", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Backend response:", result); // Log full response for debugging
+
+        const transcription = result;
+        const botResponse = { text: transcription, sender: "bot" };
+
+        setChatHistory((prevHistory) => [...prevHistory, botResponse]);
+      } else {
+        const errorMessage = { text: "Failed to process audio. Please try again.", sender: "bot" };
+        setChatHistory((prevHistory) => [...prevHistory, errorMessage]);
+      }
+    } catch (error) {
+      console.error("Error uploading audio file:", error);
+      const errorMessage = { text: "An error occurred while processing the audio.", sender: "bot" };
+      setChatHistory((prevHistory) => [...prevHistory, errorMessage]);
+    } finally {
+      scrollToBottom();
+    }
+  };
+
+  const scrollToBottom = () => {
     if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
   }, [chatHistory]);
-
-  const handleTranslate = () => {
-    if (userMessage.trim() !== "") {
-      const newChatHistory = [
-        ...chatHistory,
-        { text: userMessage, sender: "user" },
-      ];
-      setChatHistory(newChatHistory);
-      setUserMessage("");
-
-      // Hardcoded translation response
-      const hardcodedTranslation = "এই বাক্যটি বাংলায় অনুবাদ করা হয়েছে।";
-
-      setChatHistory([
-        ...newChatHistory,
-        { text: hardcodedTranslation, sender: "bot" },
-      ]);
-    }
-  };
-
-  const handleSelectChat = (chat) => {
-    setSelectedChat(chat.id);
-    setChatHistory(hardcodedMessages[chat.id]);
-  };
-
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const filteredChats = hardcodedChats.filter((chat) =>
-    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleGeneratePDF = () => {
-    const hardcodedPdfLink =
-      "https://drive.google.com/file/d/1_tYyacHrrXb17U4qEVrqICJHGvVFq8l1/view?usp=drive_link";
-    window.open(hardcodedPdfLink, "_blank");
-  };
 
   return (
     <div className="translator-container">
-      <div className="translator-sidebar">
+      {/* <div className="translator-sidebar">
         <h3 className="translator-sidebar-title">Chat History</h3>
         <input
           type="text"
           className="translator-search-bar"
           placeholder="Search chats..."
-          value={searchQuery}
-          onChange={handleSearch}
         />
         <div className="translator-chat-list">
-          {filteredChats.map((chat) => (
-            <div
-              key={chat.id}
-              className={`chat-item ${
-                selectedChat === chat.id ? "selected" : ""
-              }`}
-              onClick={() => handleSelectChat(chat)}
-            >
-              {chat.title}
+          {chatHistory.map((msg, index) => (
+            <div key={index} className="translator-chat-item">
+              {msg.sender === "bot" ? msg.text : "Audio Message"}
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <div className="translator-chat-section">
         <div className="translator-chat-window" ref={messageListRef}>
           {chatHistory.map((msg, index) => (
             <div
               key={index}
-              className={`chat-message ${
+              className={`translator-chat-message ${
                 msg.sender === "user" ? "user" : "bot"
               }`}
             >
-              {msg.text}
+              {msg.isAudio ? (
+                <audio controls src={msg.text}></audio>
+              ) : (
+                msg.text
+              )}
             </div>
           ))}
         </div>
@@ -112,12 +159,21 @@ const Translator = () => {
             onChange={(e) => setUserMessage(e.target.value)}
             placeholder="Type a message in English..."
           ></textarea>
-          <button className="translator-translate-button" onClick={handleTranslate}>
+          <button className="translator-translate-button" onClick={() => {}}>
             ➤
           </button>
-          <button className="translator-generate-pdf-button" onClick={handleGeneratePDF}>
-            PDF
+          <button className="translator-microphone-button" onClick={handleAudioRecord}>
+            {isRecording ? "🎤 Recording..." : "🎤"}
           </button>
+          {audioBlobUrl && (
+            <a
+              href={audioBlobUrl}
+              download="recording.webm"
+              className="translator-download-button"
+            >
+              Download WebM
+            </a>
+          )}
         </div>
       </div>
     </div>
