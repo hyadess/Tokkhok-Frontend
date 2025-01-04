@@ -92,7 +92,7 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - then we feed the query and fetched chunks to AI-agent
 - AI agent then generates Bengali response using our custom knowledge base
 
-![RAG](rag.png)
+![RAG](rag_1.png)
 
 ## Translation Generation:
 
@@ -103,6 +103,8 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - admins approve some of them
 - The approved pairs are used as few shot inferencing
 - Future plan is to run a cron job (after 1 week) to collect the approved samples and use them to train model using openai's fine-tune api. Currently it could not be done due to costing reasons
+![translation](translation_1.png)
+
 
 #### way-2:
 - used Google Transliterate API
