@@ -92,6 +92,8 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - then we feed the query and fetched chunks to AI-agent
 - AI agent then generates Bengali response using our custom knowledge base
 
+![RAG](rag.png)
+
 ## Translation Generation:
 
 ### For translation, we have tried 2 ways:
