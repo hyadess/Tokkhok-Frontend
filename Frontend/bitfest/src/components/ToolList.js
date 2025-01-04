@@ -40,6 +40,24 @@ const ToolList = () => {
             <div className="tool-name">Chatbot</div>
           </div>
         </div>
+
+        <div className="tool-container" onClick={() => navigate(`/translate`)}>
+          {/* <div className='tool-image'>
+                        <FontAwesomeIcon icon={faChalkboard} size='1x' />
+                    </div> */}
+          <div className="tool-text">
+            <div className="tool-name">Translator</div>
+          </div>
+        </div>
+        <div className="tool-container" onClick={() => navigate(`/notes-create`)}>
+          {/* <div className='tool-image'>
+                        <FontAwesomeIcon icon={faChalkboard} size='1x' />
+                    </div> */}
+          <div className="tool-text">
+            <div className="tool-name">Editor</div>
+          </div>
+        </div>
+
         <div className="tool-container" onClick={() => setIsUserTrain(true)}>
           {/* <div className='tool-image'>
                         <FontAwesomeIcon icon={faChalkboard} size='1x' />

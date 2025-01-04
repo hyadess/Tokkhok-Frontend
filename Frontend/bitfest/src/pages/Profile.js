@@ -4,6 +4,8 @@ import axios from "axios";
 import PdfList from "../components/cardLists/PdfList"; // Import PdfList component
 import "../css/Profile.css";
 import NotesList from "./Notes/NotesList";
+import AnalyticsDashboard from "./analysis";
+import { Analytics } from "@mui/icons-material";
 const Profile = () => {
   const [selectedMenu, setSelectedMenu] = useState("myPdfs");
   const [data, setData] = useState([]);
@@ -12,8 +14,9 @@ const Profile = () => {
   const menuTitles = {
     myPdfs: "My PDFs",
     AllowedPublicPdfs: "Allowed Public PDFs",
-    myEditors: "My Editors",
-    sharedEditors: "Shared Editors",
+    Analytics: "Analytics",
+    // myEditors: "My Editors",
+    // sharedEditors: "Shared Editors",
   };
 
   // Fetch data from backend based on the selected menu
@@ -52,22 +55,9 @@ const Profile = () => {
         {selectedMenu === "myPdfs" || selectedMenu === "AllowedPublicPdfs" ? (
           <PdfList data={selectedMenu } />
         ) : (
-          <div>
-            <h1>{menuTitles[selectedMenu]}</h1>
-            <ul>
-              {data.map((item) => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ul>
-          </div>
+          <AnalyticsDashboard />
         )}
-        {/* if selected menu is myEditors or sharedEditors, render NotesList component */}
-        {selectedMenu === "myEditors" || selectedMenu === "sharedEditors" ? (
-          <NotesList />
-        ) : null}
-
-
-
+        
       </div>
     </div>
   );

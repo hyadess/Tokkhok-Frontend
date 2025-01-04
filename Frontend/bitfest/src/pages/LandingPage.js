@@ -19,9 +19,9 @@ const LandingPage = ()=>{
                     <div className="w-[100%] h-[100%]">
                         <div className="flex items-center h-[100%] p-4">
                             <div>
-                                <p className="text-[60px] text-[#343b3d] text-center md:text-justify font-bold leading-[60px]">WELCOME LEARNER,<br></br> TO CODE TUTOR</p>
+                                <p className="text-[60px] text-[#343b3d] text-center md:text-justify font-bold leading-[60px]">WELCOME,<br></br> TO TOKKHOK</p>
                                 <p className="w-[70%] text-[#3d4547] leading-5 color-gray text-center md:text-justify font-medium text-[22px] my-3">
-                                    BOOST YOUR LEARNING USING OUR MULTIMODAL CHATBOT
+                                    OFFERING YOU TOOLS FOR BANGLA LANGUAGE
                                 </p>
                             </div>
                         </div>
@@ -41,7 +41,7 @@ const LandingPage = ()=>{
                         <div className="flex justify-end items-center h-[100%] p-4">
                           
                             <div className="md:w-[70%]">
-                                <p className="text-center md:text-right text-[60px] text-[#3a3f42] font-bold leading-[60px]">CREATE QUIZ, AND <br></br>TEST YOURSELF</p>
+                                <p className="text-center md:text-right text-[60px] text-[#3a3f42] font-bold leading-[60px]">WRITE AND ASK  <br></br>IN BANGLA</p>
                                 {/* <p className="text-center md:text-right  text-[#3d4547] leading-5 font-medium text-[22px] my-3">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuad
                                 </p> */}
@@ -64,7 +64,7 @@ const LandingPage = ()=>{
                     <div className="w-[100%] h-[100%] ">
                         <div className="flex justify-center items-center h-[100%] p-4">
                             <div>
-                                <p className="text-[56px] text-[#343b3d] text-center md:text-justify font-bold leading-[60px]">GET SUGGESTION &<br></br> SHARPEN YOUR KNOWLEDGE</p>
+                                <p className="text-[56px] text-[#343b3d] text-center md:text-justify font-bold leading-[60px]">AUDIO CHAT<br></br> WITH YOUR ASSISTANCE</p>
                                 {/* <p className="w-[70%] text-[#3d4547]  text-center leading-5 md:text-justify font-medium text-[22px] my-3">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis  malesuada. Nullam vehicula, lorem quis 
                                 </p> */}
@@ -87,7 +87,7 @@ const LandingPage = ()=>{
                     <div className="w-[100%] h-[100%]">
                         <div className="flex justify-center items-center h-[100%]">
                             <div className="md:w-[70%]">
-                                <p className="md:text-right text-center text-[60px] text-[#e8ecee] font-bold leading-[60px]">CREATE LECTURES,<br></br>TEACH OTHERS</p>
+                                <p className="md:text-right text-center text-[60px] text-[#e8ecee] font-bold leading-[60px]">TRAIN YOUR TRANSLATOR,<br></br>MAKE IT STRONG</p>
                                 {/* <p className="md:text-right text-center text-[#c3ced1] leading-5 font-medium text-[22px] my-3">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuad
                                 </p>  */}

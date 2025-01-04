@@ -38,7 +38,7 @@ const Navbar = () => {
         className="navbar-logo-name flex items-center cursor"
         onClick={() => navigate("/home")}
       >
-        Code Tutor
+        TOKKHOK
       </h2>
 
       <div className="flex items-center">
