@@ -1,5 +1,5 @@
 
-[visit here](https://buet-genesis-1gg5.onrender.com/docs)For API Documentations
+[visit here](https://buet-genesis-1gg5.onrender.com/docs) For API Documentations
 
 # Running the Frontend
 
