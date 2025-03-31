@@ -1,3 +1,19 @@
+
+[visit here](https://buet-genesis-1gg5.onrender.com/docs) For API Documentations
+
+# Running the Frontend
+
+follow the following commands. 
+
+```bash
+npm i
+```
+
+```bash
+npm start
+```
+
+
 # Running the Backend
 ## FastAPI Backend
 ## Virtual environment
@@ -92,6 +108,8 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - then we feed the query and fetched chunks to AI-agent
 - AI agent then generates Bengali response using our custom knowledge base
 
+![RAG](rag_1.png)
+
 ## Translation Generation:
 
 ### For translation, we have tried 2 ways:
@@ -101,6 +119,8 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - admins approve some of them
 - The approved pairs are used as few shot inferencing
 - Future plan is to run a cron job (after 1 week) to collect the approved samples and use them to train model using openai's fine-tune api. Currently it could not be done due to costing reasons
+![translation](translation_1.png)
+
 
 #### way-2:
 - used Google Transliterate API
@@ -115,7 +135,7 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - we fed knowledge and query to AI-agent. It responded in text
 - with browsers SpeechSynthesis api, we can convert the textual response to speech
 - After returning the audio response, we did the db-storing activities using FastAPI's background task
-
+![audio-chat](audio.png)
 ## Latency Handling at the time of translating Banglish to bangla
 - we have used FastAPI's Background task to execute db-operations in a separate thread. When the thread updates the db-operation, we terminate it
 - we return the translation as soon as we get
@@ -126,4 +146,3 @@ used [Noto-Sans font from Google fonts](https://fonts.google.com/noto/specimen/N
 - used renders docker template for fastapi for deployment
 - how dealt with Render's freezing issue?
 - there is a dummy GET endpoint in /, Ran a cronjon from [a cronjob site](https://cron-job.org/en/)
-
